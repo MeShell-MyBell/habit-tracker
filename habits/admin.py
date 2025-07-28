@@ -1,6 +1,6 @@
 from django.contrib import admin
+from .models import Category, Task  # Import the models correctly
 
-# from .models import Category, Habit
-
+# Register your models with the admin site
 admin.site.register(Category)
-admin.site.register(Habit)Register your models here.
+admin.site.register(Task)

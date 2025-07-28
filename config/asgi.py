@@ -1,5 +1,5 @@
 """
-ASGI config for config project.
+ASGI config for habit_tracker project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 

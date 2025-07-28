@@ -1,5 +1,5 @@
 """
-WSGI config for config project.
+WSGI config for habit-tracker project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

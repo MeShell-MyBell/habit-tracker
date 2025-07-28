@@ -1,0 +1,110 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #fcd38d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .card {
+    background: #fff8dc;
+    border-radius: 25px;
+    padding: 1.5rem;
+    width: 280px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  
+  .sign-in {
+    background: linear-gradient(to bottom, #ffe082, #fbc02d);
+  }
+  
+  .tracker {
+    background: #fff9e1;
+  }
+  
+  .edit {
+    background: #ffe4f0;
+  }
+  
+  h2 {
+    margin-bottom: 1rem;
+    color: #5e2b82;
+  }
+  
+  .sun {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  input {
+    width: 100%;
+    padding: 0.6rem;
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  
+  .btn {
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 15px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .pink { background: #f06292; }
+  .teal { background: #4dd0e1; }
+  .lime { background: #aed581; }
+  
+  .small {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+  }
+  
+  a {
+    color: #6a1b9a;
+    text-decoration: none;
+  }
+  
+  .calendar .weekdays, .calendar .days {
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+  }
+  
+  .habit {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .label {
+    font-weight: bold;
+    flex: 1;
+  }
+  
+  .dots {
+    display: flex;
+    gap: 0.3rem;
+  }
+  
+  .dots span {
+    width: 14p
+  

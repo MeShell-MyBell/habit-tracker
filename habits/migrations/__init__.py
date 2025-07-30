@@ -24,3 +24,5 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=100)),
                 ('due_date', models.DateField()),
                 ('completed', models.BooleanField(default=False)),
+                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='tasks.category')),
+            ],

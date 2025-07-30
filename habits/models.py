@@ -1,25 +1,26 @@
 from django.db import models
 
-# a model for Category to store category names
-# category names are unique and no longer than 50 characters
-
 class Category(models.Model):
-	name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50, unique=True)  # Unique category name
 
-	def __str__(self):
-		return self.name
+    def __str__(self):
+        return self.name  # String representation of the category
 
-# a model for Task to store task title, due date,
-# task completed status, and category.
-# task title is no longer than 100 characters,
-# completed status is False by default
-# and category is a foreign key to Category.
 
-class Task(models.Model):
-	title = models.CharField(max_length=100)
-	due_date = models.DateField()
-	completed = models.BooleanField(default=False)
-	category = models.ForeignKey(Category, on_delete=models.CASCADE)
+class Habit(models.Model):
+    name = models.CharField(max_length=100)  # Name of the habit
+    description = models.TextField(blank=True, null=True)  # Optional description
+    created_at = models.DateTimeField(auto_now_add=True)  # Automatically set when created
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)  # Link to Category
 
-	def __str__(self):
-		return self.title
+    def __str__(self):
+        return self.name  # String representation of the habit
+
+
+class Progress(models.Model):
+    date = models.DateField()  # Date of the progress entry
+    status = models.BooleanField(default=False)  # Whether the habit was completed
+    habit = models.ForeignKey(Habit, on_delete=models.CASCADE)  # Link to Habit
+
+    def __str__(self):
+        return f"{self.habit.name} - {self.date} - {'Completed' if self.status else 'Not Completed'}"

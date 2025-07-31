@@ -10,16 +10,18 @@ def my_habit(request):
     to_do_habits = Habit.objects.filter(completed=False).order_by('due_date')
     done_habits = Habit.objects.filter(completed=True).order_by('due_date')
 
+    if request.method == 'POST':
+        form = HabitForm(request.POST)  # Corrected from TaskForm to HabitForm
+        if form.is_valid():
+            form.save()
+            return redirect('home')  # Ensure 'home' is a valid URL name
+    else:
+        form = HabitForm()
+
     context = {
         'to_do_habits': to_do_habits,
         'done_habits': done_habits,
+        'form': form,  # Added the form to the context
     }
 
     return render(request, 'habits/index.html', context)
-
-def add_habit(request):
-    """
-    A view to handle adding a new habit.
-    """
-    if request.method == 'POST':
-        form = HabitForm(request.POST)

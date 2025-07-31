@@ -9,4 +9,4 @@ class HabitForm(forms.ModelForm):  # Renamed to HabitForm
         widgets = {
             'due_date': forms.DateInput(attrs={'type': 'date'})
         }
-        }
+        

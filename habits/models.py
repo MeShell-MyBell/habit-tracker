@@ -23,4 +23,4 @@ class Progress(models.Model):
     habit = models.ForeignKey(Habit, on_delete=models.CASCADE)  # Link to Habit
 
     def __str__(self):
-        return f"{self.habit.name} - {self.date} - {'Completed' if self.status else 'Not Completed'}"     return f"{self.habit.name} - {self.date} - {'Completed' if self.status else 'Not Completed'}"
+        return f"{self.habit.name} - {self.date} - {'Completed' if self.status else 'Not Completed'}"

@@ -4,9 +4,9 @@ from .models import Habit  # Import the correct model
 class HabitForm(forms.ModelForm):  # Renamed to HabitForm
     class Meta:
         model = Habit  # Use the Habit model
-        fields = ['name', 'description', 'created_at', 'catergory',]  # Update fields to match Habit model
+        fields = ['name', 'description', 'category', 'completed']  # Removed 'created_at' as it is non-editable
 
         widgets = {
-            'due_date': forms.DateInput(attrs={'type': 'date'})
+            'description': forms.Textarea(attrs={'rows': 3}),
         }
-        
+    

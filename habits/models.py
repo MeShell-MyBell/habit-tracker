@@ -12,6 +12,7 @@ class Habit(models.Model):
     description = models.TextField(blank=True, null=True)  # Optional description
     created_at = models.DateTimeField(auto_now_add=True)  # Automatically set when created
     category = models.ForeignKey(Category, on_delete=models.CASCADE)  # Link to Category
+    completed = models.BooleanField(default=False)  # Whether the habit is completed
 
     def __str__(self):
         return self.name  # String representation of the habit

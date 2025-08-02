@@ -7,8 +7,8 @@ def my_habit(request):
     A view to display habits to do and completed habits
     with the habits due soonest at the top.
     """
-    to_do_habits = Habit.objects.filter(completed=False).order_by('due_date')
-    done_habits = Habit.objects.filter(completed=True).order_by('due_date')
+    to_do_habits = Habit.objects.filter(completed=False).order_by('created_at')  # Updated to use 'created_at'
+    done_habits = Habit.objects.filter(completed=True).order_by('created_at')  # Updated to use 'created_at'
 
     if request.method == 'POST':
         form = HabitForm(request.POST)  # Corrected from TaskForm to HabitForm

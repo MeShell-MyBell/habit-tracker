@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: #fcd38d;
+    background: #e3f2fd;  /* Light blue background */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,66 +17,75 @@ body {
   }
   
   .card {
-    background: #fff8dc;
-    border-radius: 25px;
+    background: #ffffff;  /* White background */
+    border-radius: 30px;  /* More rounded corners */
     padding: 1.5rem;
     width: 280px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);  /* Darker shadow */
     text-align: center;
+    border: 2px solid #1976d2;  /* Blue border */
   }
   
   .sign-in {
-    background: linear-gradient(to bottom, #ffe082, #fbc02d);
+    background: linear-gradient(to bottom, #bbdefb, #2196f3);  /* Blue gradient */
+    border-radius: 30px;  /* More rounded corners */
   }
   
   .tracker {
-    background: #fff9e1;
+    background: #f3e5f5;  /* Light purple background */
+    border-radius: 30px;  /* More rounded corners */
   }
   
   .edit {
-    background: #ffe4f0;
+    background: #e8eaf6;  /* Light indigo background */
+    border-radius: 30px;  /* More rounded corners */
   }
   
   h2 {
     margin-bottom: 1rem;
-    color: #5e2b82;
+    color: #4a148c;  /* Dark purple */
   }
   
   .sun {
     font-size: 3rem;
     margin-bottom: 0.5rem;
+    color: #1976d2;  /* Blue */
   }
   
-  input {
+  input, select, textarea {
     width: 100%;
     padding: 0.6rem;
-    border: none;
-    border-radius: 10px;
+    border: 2px solid #9c27b0;  /* Purple border */
+    border-radius: 20px;  /* More rounded corners */
     margin-bottom: 1rem;
     font-size: 1rem;
+    background: #ffffff;  /* White background */
+    color: #000000;  /* Black text */
+    box-sizing: border-box;
   }
   
   .btn {
     padding: 0.6rem 1rem;
     border: none;
-    border-radius: 15px;
+    border-radius: 20px;  /* More rounded corners */
     font-weight: bold;
     color: white;
     cursor: pointer;
     font-size: 1rem;
   }
   
-  .pink { background: #f06292; }
-  .teal { background: #4dd0e1; }
-  .lime { background: #aed581; }
+  .pink { background: #9c27b0; }  /* Purple instead of pink */
+  .teal { background: #2196f3; }  /* Blue instead of teal */
+  .lime { background: #673ab7; }  /* Purple instead of lime */
   
   .small {
     font-size: 0.85rem;
     margin-top: 0.5rem;
+    color: #000000;  /* Black text */
   }
   
   a {
-    color: #6a1b9a;
+    color: #4a148c;  /* Dark purple */
     text-decoration: none;
   }
   
@@ -86,6 +95,7 @@ body {
     display: flex;
     justify-content: space-between;
     font-size: 0.9rem;
+    color: #000000;  /* Black text */
   }
   
   .habit {
@@ -93,11 +103,16 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: #f3e5f5;  /* Light purple background */
+    padding: 0.5rem;
+    border-radius: 20px;  /* More rounded corners */
+    border: 1px solid #9c27b0;  /* Purple border */
   }
   
   .label {
     font-weight: bold;
     flex: 1;
+    color: #000000;  /* Black text */
   }
   
   .dots {
@@ -109,5 +124,15 @@ body {
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background: #ddd;
+    background: #e1bee7;  /* Light purple */
+    border: 1px solid #9c27b0;  /* Purple border */
+  }
+  
+  /* Additional form styling with rounded corners */
+  .form-control {
+    border-radius: 20px;  /* More rounded corners for form controls */
+  }
+  
+  .form-check-input {
+    border-radius: 8px;  /* Rounded corners for checkboxes */
   }

@@ -15,6 +15,7 @@ body {
     background-attachment: fixed; /* Keep background fixed during scroll */
     min-height: 100vh;
     padding: 0;
+    display: block; /* Remove flex layout that might be causing issues */
   }
   
   /* Responsive sun effect */
@@ -32,17 +33,29 @@ body {
   }
   
   /* Header responsive styling */
+  header {
+    width: 100%;
+    text-align: center !important; /* Force center alignment */
+    display: block;
+    margin: 0 auto;
+  }
+
   header h1 {
     font-size: 2.5rem;
-    margin: 0;
+    margin: 0 auto;
     padding: 0.5rem;
+    text-align: center !important; /* Force center alignment */
+    display: block;
+    width: 100%;
   }
-  
+
   /* Container responsive adjustments */
   .container {
     max-width: 100%;
     padding: 0 15px;
     margin: 0 auto;
+    display: block; /* Ensure block layout */
+    width: 100%;
   }
   
   /* Card responsive styling */
@@ -163,6 +176,16 @@ body {
   footer {
     margin-top: 2rem;
     padding: 1rem;
+    width: 100%;
+    text-align: center !important; /* Force center alignment */
+    display: block;
+    clear: both; /* Clear any floats */
+  }
+
+  footer p {
+    text-align: center !important; /* Force center alignment for footer text */
+    margin: 0 auto;
+    display: block;
   }
   
   /* Mobile-first responsive breakpoints */

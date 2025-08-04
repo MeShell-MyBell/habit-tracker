@@ -16,6 +16,7 @@ body {
     min-height: 100vh;
     padding: 0;
     display: block; /* Remove flex layout that might be causing issues */
+    padding-top: 80px; /* Add padding for fixed navbar */
   }
   
   /* Responsive sun effect */
@@ -186,6 +187,69 @@ body {
     text-align: center !important; /* Force center alignment for footer text */
     margin: 0 auto;
     display: block;
+  }
+  
+  /* Navigation styles */
+  .navbar {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  }
+
+  .navbar-brand {
+    font-weight: 700 !important;
+  }
+
+  .dropdown-menu {
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    border-radius: 10px;
+  }
+
+  /* Authentication form specific styles */
+  .auth-card {
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 25px;
+    border: 1px solid rgba(156, 39, 176, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+  }
+
+  .auth-card .card-header {
+    background: linear-gradient(135deg, #9c27b0, #673ab7);
+    border-radius: 25px 25px 0 0;
+    padding: 1.5rem;
+    border: none;
+  }
+
+  .auth-card .card-body {
+    padding: 2rem;
+  }
+
+  /* Alert styles */
+  .alert {
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+
+  .alert-success {
+    background: linear-gradient(135deg, #4caf50, #388e3c);
+    color: white;
+  }
+
+  .alert-danger {
+    background: linear-gradient(135deg, #f44336, #d32f2f);
+    color: white;
+  }
+
+  .alert-info {
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+    color: white;
+  }
+
+  /* Form validation error styling */
+  .text-danger {
+    color: #d32f2f !important;
+    font-weight: 500;
   }
   
   /* Mobile-first responsive breakpoints */

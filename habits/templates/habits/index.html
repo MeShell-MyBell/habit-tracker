@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Power of Change</title>
+    <title>Habit Tracker</title>
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -18,11 +18,53 @@
 </head>
 
 <body>
-    <header class="text-center py-4 mb-4">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(156, 39, 176, 0.9); backdrop-filter: blur(10px);">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{% url 'home' %}">
+                <i class="fas fa-chart-line me-2"></i>Habit Tracker
+            </a>
+            
+            <div class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user me-1"></i>{{ user.first_name|default:user.username }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">
+                                <i class="fas fa-sign-out-alt me-2"></i>Logout
+                            </a></li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <a class="nav-link text-white" href="{% url 'login' %}">
+                        <i class="fas fa-sign-in-alt me-1"></i>Login
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <header class="text-center py-4 mb-4" style="margin-top: 70px;">
         <h1 class="display-3 text-white mb-0" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">The Power of Change</h1>
+        {% if user.is_authenticated %}
+            <p class="text-white mt-2" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">
+                Welcome back, {{ user.first_name|default:user.username }}! Keep building those habits! 🌟
+            </p>
+        {% endif %}
     </header>
 
     <main class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
         <div class="row">
             <div class="col-md-4 mb-4">
                 <section id="habit-overview" class="card">
@@ -30,47 +72,42 @@
                         <h2 class="h5 mb-0">Habit Overview</h2>
                     </div>
                     <div class="card-body" id="overview-content">
-                        <p>Total Habits: <span id="total-habits">0</span></p>
-                        <p>Habits Completed Today: <span id="completed-habits">0</span></p>
-                        <p>Longest Streak: <span id="longest-streak">0 days</span></p>
+                        <p>Total Habits: <span id="total-habits">{{ to_do_habits|length|add:done_habits|length }}</span></p>
+                        <p>Habits To Do: <span id="pending-habits">{{ to_do_habits|length }}</span></p>
+                        <p>Habits Completed: <span id="completed-habits">{{ done_habits|length }}</span></p>
                     </div>
                 </section>
             </div>
 
-            <div class="col-md-4 mb-4">
+            <div class="col-md-8 mb-4">
                 <section id="add-habit" class="card">
                     <div class="card-header">
                         <h2 class="h5 mb-0">Add New Habit</h2>
                     </div>
                     <div class="card-body">
-                        <form id="habit-form">
-                            <input type="text" id="habit-name" class="form-control mb-3" placeholder="Enter habit name" required>
-                            <select id="habit-category" class="form-control mb-3">
-                                <option value="health">Health</option>
-                                <option value="productivity">Productivity</option>
-                                <option value="learning">Learning</option>
-                            </select>
-                            <select id="habit-frequency" class="form-control mb-3">
-                                <option value="daily">Daily</option>
-                                <option value="weekly">Weekly</option>
-                            </select>
-                            <button type="submit" class="btn btn-primary w-100">Add Habit</button>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    {{ form.name }}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    {{ form.category }}
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                {{ form.description }}
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    {{ form.completed }}
+                                    <label class="form-check-label" for="{{ form.completed.id_for_label }}">
+                                        Mark as completed
+                                    </label>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Habit</button>
                         </form>
-                    </div>
-                </section>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <section id="category-management" class="card">
-                    <div class="card-header">
-                        <h2 class="h5 mb-0">Manage Categories</h2>
-                    </div>
-                    <div class="card-body">
-                        <form id="category-form">
-                            <input type="text" id="new-category" class="form-control mb-3" placeholder="New category name" required>
-                            <button type="submit" class="btn btn-success w-100">Add Category</button>
-                        </form>
-                        <div id="category-list" class="mt-3"></div>
                     </div>
                 </section>
             </div>
@@ -79,75 +116,68 @@
         <div class="row">
             <div class="col-md-6 mb-4">
                 <section id="habit-list" class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h2 class="h5 mb-0">Your Habits</h2>
-                        <select id="filter-category" class="form-control" style="width: auto;">
-                            <option value="all">All Categories</option>
-                        </select>
+                    <div class="card-header">
+                        <h2 class="h5 mb-0">Pending Habits ({{ to_do_habits|length }})</h2>
                     </div>
                     <div class="card-body">
-                        <!-- dynamic insertion -->
+                        {% if to_do_habits %}
+                            {% for habit in to_do_habits %}
+                                <div class="habit">
+                                    <div class="label">
+                                        <strong>{{ habit.name }}</strong>
+                                        {% if habit.description %}
+                                            <br><small class="text-muted">{{ habit.description }}</small>
+                                        {% endif %}
+                                        <br><small class="text-info">Category: {{ habit.category.name }}</small>
+                                        <br><small class="text-muted">Created: {{ habit.created_at|date:"M d, Y" }}</small>
+                                    </div>
+                                    <div class="dots">
+                                        <span style="background: #ff9800;"></span>
+                                        <span style="background: #ff9800;"></span>
+                                        <span style="background: #ddd;"></span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-muted text-center py-4">
+                                <i class="fas fa-trophy fa-2x mb-3 d-block"></i>
+                                No pending habits! Add one above to get started.
+                            </p>
+                        {% endif %}
                     </div>
                 </section>
             </div>
 
             <div class="col-md-6 mb-4">
-                <section id="edit-habit" class="card">
+                <section id="completed-habits" class="card">
                     <div class="card-header">
-                        <h2 class="h5 mb-0">Edit Habit</h2>
+                        <h2 class="h5 mb-0">Completed Habits ({{ done_habits|length }})</h2>
                     </div>
                     <div class="card-body">
-                        <form id="edit-habit-form">
-                            <input type="text" id="edit-habit-name" class="form-control mb-3" placeholder="Enter habit name" required>
-                            <select id="edit-habit-category" class="form-control mb-3">
-                                <option value="health">Health</option>
-                                <option value="productivity">Productivity</option>
-                                <option value="learning">Learning</option>
-                            </select>
-                            <select id="edit-habit-frequency" class="form-control mb-3">
-                                <option value="daily">Daily</option>
-                                <option value="weekly">Weekly</option>
-                            </select>
-                            <button type="submit" class="btn btn-warning w-100 mb-2">Save Changes</button>
-                            <button type="button" id="cancel-edit" class="btn btn-secondary w-100">Cancel</button>
-                        </form>
-                    </div>
-                </section>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 mb-4">
-                <section id="reminders" class="card">
-                    <div class="card-header">
-                        <h2 class="h5 mb-0">Habit Reminders</h2>
-                    </div>
-                    <div class="card-body">
-                        <form id="reminder-form">
-                            <select id="reminder-habit" class="form-control mb-3">    
-                            </select>
-                            <input type="time" id="reminder-time" class="form-control mb-3" required>
-                            <select id="reminder-frequency" class="form-control mb-3">
-                                <option value="once">Once</option>
-                                <option value="daily">Daily</option>
-                                <option value="weekly">Weekly</option>
-                            </select>
-                            <button type="submit" class="btn btn-info w-100">Set Reminder</button>
-                        </form>
-                        <div id="reminder-list" class="mt-3"></div>
-                    </div>
-                </section>
-            </div>
-
-            <div class="col-md-6 mb-4">
-                <section id="settings" class="card">
-                    <div class="card-header">
-                        <h2 class="h5 mb-0">Settings</h2>
-                    </div>
-                    <div class="card-body">
-                        <div id="settings-content">
-                            <button id="clear-data" class="btn btn-danger w-100">Clear All Data</button>
-                        </div>
+                        {% if done_habits %}
+                            {% for habit in done_habits %}
+                                <div class="habit">
+                                    <div class="label">
+                                        <strong>{{ habit.name }}</strong>
+                                        {% if habit.description %}
+                                            <br><small class="text-muted">{{ habit.description }}</small>
+                                        {% endif %}
+                                        <br><small class="text-info">Category: {{ habit.category.name }}</small>
+                                        <br><small class="text-success">Completed: {{ habit.created_at|date:"M d, Y" }}</small>
+                                    </div>
+                                    <div class="dots">
+                                        <span style="background: #4caf50;"></span>
+                                        <span style="background: #4caf50;"></span>
+                                        <span style="background: #4caf50;"></span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-muted text-center py-4">
+                                <i class="fas fa-clock fa-2x mb-3 d-block"></i>
+                                No completed habits yet. Keep working on your goals!
+                            </p>
+                        {% endif %}
                     </div>
                 </section>
             </div>
@@ -155,9 +185,11 @@
     </main>
 
     <footer class="text-center py-4 mt-5">
-        <p class="text-white mb-0" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Habit Tracker App</p>
+        <p class="text-white mb-0" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">
+            Habit Tracker App &copy; 2025 - Building Better Habits Every Day
+        </p>
     </footer>
 
-    <script src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

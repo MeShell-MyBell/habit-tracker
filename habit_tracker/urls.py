@@ -20,6 +20,7 @@ from habits.views import my_habit
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', my_habit, name='habits'),
+	path('', include('habits.urls')),
+]
 ]
 #

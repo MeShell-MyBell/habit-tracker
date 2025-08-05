@@ -188,3 +188,60 @@ def password_reset_confirm_view(request, token):
 def password_reset_complete_view(request):
     """Password reset complete confirmation"""
     return render(request, 'habits/auth/password_reset_complete.html')
+
+@login_required
+def edit_habit(request, habit_id):
+    """
+    Edit an existing habit
+    """
+    habit = get_object_or_404(Habit, id=habit_id, user=request.user)
+    
+    if request.method == 'POST':
+        form = HabitForm(request.POST, instance=habit)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Habit "{habit.name}" updated successfully!')
+            return redirect('home')
+    else:
+        form = HabitForm(instance=habit)
+    
+    context = {
+        'form': form,
+        'habit': habit,
+    }
+    
+    return render(request, 'habits/edit_habit.html', context)
+
+@login_required
+def delete_habit(request, habit_id):
+    """
+    Delete an existing habit
+    """
+    habit = get_object_or_404(Habit, id=habit_id, user=request.user)
+    
+    if request.method == 'POST':
+        habit_name = habit.name
+        habit.delete()
+        messages.success(request, f'Habit "{habit_name}" deleted successfully!')
+        return redirect('home')
+    
+    context = {
+        'habit': habit,
+    }
+    
+    return render(request, 'habits/delete_habit.html', context)
+
+@login_required
+def toggle_habit_completion(request, habit_id):
+    """
+    Toggle habit completion status
+    """
+    habit = get_object_or_404(Habit, id=habit_id, user=request.user)
+    
+    habit.completed = not habit.completed
+    habit.save()
+    
+    status = "completed" if habit.completed else "marked as pending"
+    messages.success(request, f'Habit "{habit.name}" {status}!')
+    
+    return redirect('home')

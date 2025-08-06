@@ -6,11 +6,12 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
 from django.urls import reverse
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from .models import Habit, PasswordResetToken
 from .forms import HabitForm
 from .auth_forms import CustomUserCreationForm, CustomAuthenticationForm, CustomPasswordResetForm, PasswordResetConfirmForm
 import uuid
+from datetime import datetime
 
 @login_required
 def my_habit(request):
@@ -27,7 +28,22 @@ def my_habit(request):
             habit = form.save(commit=False)
             habit.user = request.user
             habit.save()
-            messages.success(request, 'Habit added successfully!')
+            
+            # Enhanced notification for habit creation
+            messages.success(
+                request, 
+                f'🎉 Great job! Habit "{habit.name}" has been added to your tracker!',
+                extra_tags='habit-added'
+            )
+            
+            # Store notification data in session for browser notification
+            request.session['notification'] = {
+                'type': 'success',
+                'title': 'New Habit Added!',
+                'message': f'"{habit.name}" is now being tracked',
+                'icon': '🎯'
+            }
+            
             return redirect('home')
     else:
         form = HabitForm()
@@ -195,12 +211,28 @@ def edit_habit(request, habit_id):
     Edit an existing habit
     """
     habit = get_object_or_404(Habit, id=habit_id, user=request.user)
+    original_name = habit.name
     
     if request.method == 'POST':
         form = HabitForm(request.POST, instance=habit)
         if form.is_valid():
-            form.save()
-            messages.success(request, f'Habit "{habit.name}" updated successfully!')
+            updated_habit = form.save()
+            
+            # Enhanced notification for habit editing
+            messages.success(
+                request, 
+                f'✏️ Habit "{updated_habit.name}" has been updated successfully!',
+                extra_tags='habit-edited'
+            )
+            
+            # Store notification data in session for browser notification
+            request.session['notification'] = {
+                'type': 'info',
+                'title': 'Habit Updated!',
+                'message': f'Changes to "{updated_habit.name}" have been saved',
+                'icon': '✏️'
+            }
+            
             return redirect('home')
     else:
         form = HabitForm(instance=habit)
@@ -222,7 +254,22 @@ def delete_habit(request, habit_id):
     if request.method == 'POST':
         habit_name = habit.name
         habit.delete()
-        messages.success(request, f'Habit "{habit_name}" deleted successfully!')
+        
+        # Enhanced notification for habit deletion
+        messages.warning(
+            request, 
+            f'🗑️ Habit "{habit_name}" has been deleted from your tracker.',
+            extra_tags='habit-deleted'
+        )
+        
+        # Store notification data in session for browser notification
+        request.session['notification'] = {
+            'type': 'warning',
+            'title': 'Habit Deleted',
+            'message': f'"{habit_name}" has been removed from your tracker',
+            'icon': '🗑️'
+        }
+        
         return redirect('home')
     
     context = {
@@ -241,7 +288,69 @@ def toggle_habit_completion(request, habit_id):
     habit.completed = not habit.completed
     habit.save()
     
-    status = "completed" if habit.completed else "marked as pending"
-    messages.success(request, f'Habit "{habit.name}" {status}!')
+    if habit.completed:
+        # Celebration notification for completion
+        messages.success(
+            request, 
+            f'🎉 Congratulations! You completed "{habit.name}"! Keep up the great work!',
+            extra_tags='habit-completed'
+        )
+        
+        # Store celebration notification for browser
+        request.session['notification'] = {
+            'type': 'celebration',
+            'title': 'Habit Completed! 🎉',
+            'message': f'Amazing work on "{habit.name}"!',
+            'icon': '🏆'
+        }
+    else:
+        # Notification for marking as pending
+        messages.info(
+            request, 
+            f'📝 Habit "{habit.name}" has been marked as pending.',
+            extra_tags='habit-pending'
+        )
+        
+        # Store notification for browser
+        request.session['notification'] = {
+            'type': 'info',
+            'title': 'Habit Status Changed',
+            'message': f'"{habit.name}" is now pending',
+            'icon': '📝'
+        }
     
     return redirect('home')
+
+@login_required
+def get_notification(request):
+    """
+    API endpoint to get notification data for browser notifications
+    """
+    notification = request.session.pop('notification', None)
+    if notification:
+        return JsonResponse(notification)
+    return JsonResponse({})
+
+@login_required
+def mark_habit_completed_ajax(request, habit_id):
+    """
+    AJAX endpoint for completing habits with instant notifications
+    """
+    if request.method == 'POST':
+        habit = get_object_or_404(Habit, id=habit_id, user=request.user)
+        habit.completed = True
+        habit.save()
+        
+        return JsonResponse({
+            'success': True,
+            'message': f'🎉 Congratulations! You completed "{habit.name}"!',
+            'habit_name': habit.name,
+            'notification': {
+                'type': 'celebration',
+                'title': 'Habit Completed! 🎉',
+                'message': f'Amazing work on "{habit.name}"!',
+                'icon': '🏆'
+            }
+        })
+    
+    return JsonResponse({'success': False})

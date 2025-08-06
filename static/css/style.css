@@ -159,76 +159,97 @@ body {
     font-size: 0.95rem;
   }
   
-  .dots {
+  /* Action buttons for habits */
+  .habit-actions {
+    min-width: 40px;
+  }
+  
+  .habit-actions .btn {
+    width: 32px;
+    height: 32px;
+    padding: 0;
     display: flex;
-    gap: 0.25rem;
-    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    margin-bottom: 0;
+    transition: all 0.3s ease;
   }
   
-  .dots span {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #e1bee7;
-    border: 1px solid #9c27b0;
+  .habit-actions .btn:hover {
+    transform: scale(1.1);
   }
   
-  /* Footer styling */
-  footer {
-    margin-top: 2rem;
-    padding: 1rem;
+  .habit-actions .btn.quick-complete-btn:hover {
+    transform: scale(1.2);
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+  }
+  
+  /* Progress Bar for Habits */
+  .habit-progress {
     width: 100%;
-    text-align: center !important; /* Force center alignment */
-    display: block;
-    clear: both; /* Clear any floats */
+    height: 4px;
+    background: rgba(156, 39, 176, 0.2);
+    border-radius: 2px;
+    margin-top: 8px;
+    overflow: hidden;
   }
 
-  footer p {
-    text-align: center !important; /* Force center alignment for footer text */
-    margin: 0 auto;
-    display: block;
-  }
-  
-  /* Navigation styles */
-  .navbar {
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  .habit-progress-bar {
+    height: 100%;
+    background: linear-gradient(135deg, #4caf50, #388e3c);
+    border-radius: 2px;
+    transition: width 0.3s ease;
   }
 
-  .navbar-brand {
-    font-weight: 700 !important;
-  }
-
-  .dropdown-menu {
-    border: none;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    border-radius: 10px;
-  }
-
-  /* Authentication form specific styles */
-  .auth-card {
-    background: rgba(255, 255, 255, 0.98);
-    border-radius: 25px;
-    border: 1px solid rgba(156, 39, 176, 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-  }
-
-  .auth-card .card-header {
+  /* Notification Permission Request */
+  .notification-permission-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     background: linear-gradient(135deg, #9c27b0, #673ab7);
-    border-radius: 25px 25px 0 0;
-    padding: 1.5rem;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    z-index: 9999;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .notification-permission-banner.show {
+    transform: translateY(0);
+  }
+
+  .notification-permission-banner button {
+    background: white;
+    color: #9c27b0;
     border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-weight: 500;
   }
 
-  .auth-card .card-body {
-    padding: 2rem;
+  .notification-permission-banner button:hover {
+    transform: scale(1.05);
   }
 
-  /* Alert styles */
+  /* Form validation error styling */
+  .text-danger {
+    color: #d32f2f !important;
+    font-weight: 500;
+  }
+
+  /* Enhanced Alert Styling with Animation */
   .alert {
     border-radius: 15px;
     border: none;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
   }
 
   .alert-success {
@@ -246,12 +267,223 @@ body {
     color: white;
   }
 
-  /* Form validation error styling */
-  .text-danger {
-    color: #d32f2f !important;
+  .alert-warning {
+    background: linear-gradient(135deg, #ff9800, #f57c00);
+    color: white;
+  }
+
+  /* Special styling for different notification types */
+  .alert.habit-added {
+    background: linear-gradient(135deg, #4caf50, #2e7d32);
+    animation: slide-in-bounce 0.8s ease-out;
+  }
+
+  .alert.habit-edited {
+    background: linear-gradient(135deg, #2196f3, #1565c0);
+    animation: pulse-glow 0.6s ease-in-out;
+  }
+
+  .alert.habit-completed {
+    background: linear-gradient(135deg, #ff6b6b, #e91e63);
+    animation: celebration-bounce 0.8s ease-in-out;
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+  }
+
+  .alert.habit-deleted {
+    background: linear-gradient(135deg, #f44336, #c62828);
+    animation: shake 0.5s ease-in-out;
+  }
+
+  /* Notification Animations */
+  @keyframes slide-in-bounce {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    50% {
+      transform: translateX(10px);
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes celebration-bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-20px) scale(1.05);
+    }
+    60% {
+      transform: translateY(-10px) scale(1.02);
+    }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    50% {
+      box-shadow: 0 4px 20px rgba(33, 150, 243, 0.4);
+    }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+  }
+
+  /* Confetti Animation */
+  .confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: #ff6b6b;
+    animation: confetti-fall linear infinite;
+    z-index: 9999;
+  }
+
+  @keyframes confetti-fall {
+    0% {
+      transform: translateY(-100vh) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) rotate(720deg);
+      opacity: 0;
+    }
+  }
+
+  /* Sparkle Animation */
+  .sparkle {
+    position: absolute;
+    font-size: 1.2rem;
+    animation: sparkle-float 2s ease-out forwards;
+    pointer-events: none;
+  }
+
+  @keyframes sparkle-float {
+    0% {
+      transform: translateY(0) scale(0);
+      opacity: 1;
+    }
+    50% {
+      transform: translateY(-30px) scale(1.2);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-60px) scale(0);
+      opacity: 0;
+    }
+  }
+
+  /* Celebration Body Effect */
+  .celebrating {
+    animation: celebration-pulse 1s ease-in-out;
+  }
+
+  @keyframes celebration-pulse {
+    0%, 100% {
+      filter: brightness(1);
+    }
+    50% {
+      filter: brightness(1.1);
+    }
+  }
+
+  /* Habit Completion Celebration */
+  @keyframes completion-celebration {
+    0% {
+      transform: scale(1);
+      background-color: rgba(243, 229, 245, 0.9);
+    }
+    25% {
+      transform: scale(1.05);
+      background-color: rgba(76, 175, 80, 0.3);
+    }
+    50% {
+      transform: scale(1.1);
+      background-color: rgba(255, 193, 7, 0.3);
+    }
+    75% {
+      transform: scale(1.05);
+      background-color: rgba(76, 175, 80, 0.3);
+    }
+    100% {
+      transform: scale(1);
+      background-color: rgba(76, 175, 80, 0.9);
+    }
+  }
+
+  /* Toast Notifications */
+  .toast-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    max-width: 350px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    z-index: 10000;
+    transform: translateX(400px);
+    transition: all 0.3s ease-in-out;
+    border-left: 4px solid;
+  }
+
+  .toast-notification.show {
+    transform: translateX(0);
+  }
+
+  .toast-notification.toast-success {
+    border-left-color: #4caf50;
+  }
+
+  .toast-notification.toast-error {
+    border-left-color: #f44336;
+  }
+
+  .toast-notification.toast-info {
+    border-left-color: #2196f3;
+  }
+
+  .toast-notification.toast-warning {
+    border-left-color: #ff9800;
+  }
+
+  .toast-content {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .toast-message {
+    flex: 1;
+    margin-right: 10px;
     font-weight: 500;
   }
-  
+
+  .toast-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #999;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .toast-close:hover {
+    color: #333;
+  }
+
   /* Mobile-first responsive breakpoints */
   
   /* Small devices (phones, 576px and up) */

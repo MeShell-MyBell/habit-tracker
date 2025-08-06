@@ -14,4 +14,7 @@ urlpatterns = [
     path('habit/edit/<int:habit_id>/', views.edit_habit, name='edit_habit'),
     path('habit/delete/<int:habit_id>/', views.delete_habit, name='delete_habit'),
     path('habit/toggle/<int:habit_id>/', views.toggle_habit_completion, name='toggle_habit_completion'),
+    # Notification URLs
+    path('api/notification/', views.get_notification, name='get_notification'),
+    path('api/habit/complete/<int:habit_id>/', views.mark_habit_completed_ajax, name='complete_habit_ajax'),
 ]

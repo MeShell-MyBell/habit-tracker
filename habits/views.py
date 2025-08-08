@@ -9,9 +9,13 @@ from django.urls import reverse
 from django.http import Http404, JsonResponse
 from .models import Habit, PasswordResetToken
 from .forms import HabitForm
-from .auth_forms import CustomUserCreationForm, CustomAuthenticationForm, CustomPasswordResetForm, PasswordResetConfirmForm
-import uuid
-from datetime import datetime
+from .auth_forms import (
+    CustomUserCreationForm,
+    CustomAuthenticationForm,
+    CustomPasswordResetForm,
+    PasswordResetConfirmForm
+)
+
 
 @login_required
 def my_habit(request):
@@ -19,8 +23,12 @@ def my_habit(request):
     A view to display habits to do and completed habits
     with the habits due soonest at the top.
     """
-    to_do_habits = Habit.objects.filter(completed=False, user=request.user).order_by('created_at')
-    done_habits = Habit.objects.filter(completed=True, user=request.user).order_by('created_at')
+    to_do_habits = Habit.objects.filter(
+        completed=False, user=request.user
+    ).order_by('created_at')
+    done_habits = Habit.objects.filter(
+        completed=True, user=request.user
+    ).order_by('created_at')
 
     if request.method == 'POST':
         form = HabitForm(request.POST)
@@ -31,8 +39,9 @@ def my_habit(request):
             
             # Enhanced notification for habit creation
             messages.success(
-                request, 
-                f'🎉 Great job! Habit "{habit.name}" has been added to your tracker!',
+                request,
+                f'🎉 Great job! Habit "{habit.name}" has been added to your '
+                f'tracker!',
                 extra_tags='habit-added'
             )
             
@@ -56,6 +65,7 @@ def my_habit(request):
 
     return render(request, 'habits/index.html', context)
 
+
 def signup_view(request):
     """User registration view"""
     if request.user.is_authenticated:
@@ -64,14 +74,18 @@ def signup_view(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Account created for {username}! You can now log in.')
+            messages.success(
+                request,
+                f'Account created for {username}! You can now log in.'
+            )
             return redirect('login')
     else:
         form = CustomUserCreationForm()
     
     return render(request, 'habits/auth/signup.html', {'form': form})
+
 
 def login_view(request):
     """User login view"""
@@ -96,11 +110,13 @@ def login_view(request):
     
     return render(request, 'habits/auth/login.html', {'form': form})
 
+
 def logout_view(request):
     """User logout view"""
     logout(request)
     messages.success(request, 'You have been logged out successfully.')
     return redirect('login')
+
 
 def password_reset_request_view(request):
     """Password reset request view"""
@@ -119,7 +135,10 @@ def password_reset_request_view(request):
                 
                 # Create reset URL
                 reset_url = request.build_absolute_uri(
-                    reverse('password_reset_confirm', kwargs={'token': reset_token.token})
+                    reverse(
+                        'password_reset_confirm',
+                        kwargs={'token': reset_token.token}
+                    )
                 )
                 
                 # Send email (in production, you'd use a proper email backend)
@@ -148,25 +167,38 @@ Habit Tracker Team
                         [email],
                         fail_silently=False,
                     )
-                    messages.success(request, 'Password reset email sent! Check your inbox.')
-                except Exception as e:
+                    messages.success(
+                        request,
+                        'Password reset email sent! Check your inbox.'
+                    )
+                except Exception:
                     # For development, show the reset link directly
-                    messages.success(request, f'Password reset link (for development): {reset_url}')
+                    messages.success(
+                        request,
+                        f'Password reset link (for development): '
+                        f'{reset_url}'
+                    )
                 
                 return redirect('password_reset_done')
                 
             except User.DoesNotExist:
                 # Don't reveal if email exists or not for security
-                messages.success(request, 'If an account with that email exists, a password reset link has been sent.')
+                messages.success(
+                    request,
+                    'If an account with that email exists, a password '
+                    'reset link has been sent.'
+                )
                 return redirect('password_reset_done')
     else:
         form = CustomPasswordResetForm()
     
     return render(request, 'habits/auth/password_reset.html', {'form': form})
 
+
 def password_reset_done_view(request):
     """Password reset email sent confirmation"""
     return render(request, 'habits/auth/password_reset_done.html')
+
 
 def password_reset_confirm_view(request, token):
     """Password reset confirmation view"""
@@ -174,7 +206,10 @@ def password_reset_confirm_view(request, token):
         reset_token = get_object_or_404(PasswordResetToken, token=token)
         
         if not reset_token.is_valid():
-            messages.error(request, 'This password reset link has expired or is invalid.')
+            messages.error(
+                request,
+                'This password reset link has expired or is invalid.'
+            )
             return redirect('password_reset_request')
         
         if request.method == 'POST':
@@ -188,7 +223,11 @@ def password_reset_confirm_view(request, token):
                 # Mark token as used
                 reset_token.mark_as_used()
                 
-                messages.success(request, 'Your password has been reset successfully! You can now log in.')
+                messages.success(
+                    request,
+                    'Your password has been reset successfully! '
+                    'You can now log in.'
+                )
                 return redirect('login')
         else:
             form = PasswordResetConfirmForm()
@@ -201,9 +240,11 @@ def password_reset_confirm_view(request, token):
     except Exception:
         raise Http404("Invalid password reset link")
 
+
 def password_reset_complete_view(request):
     """Password reset complete confirmation"""
     return render(request, 'habits/auth/password_reset_complete.html')
+
 
 @login_required
 def edit_habit(request, habit_id):
@@ -211,7 +252,6 @@ def edit_habit(request, habit_id):
     Edit an existing habit
     """
     habit = get_object_or_404(Habit, id=habit_id, user=request.user)
-    original_name = habit.name
     
     if request.method == 'POST':
         form = HabitForm(request.POST, instance=habit)
@@ -220,8 +260,9 @@ def edit_habit(request, habit_id):
             
             # Enhanced notification for habit editing
             messages.success(
-                request, 
-                f'✏️ Habit "{updated_habit.name}" has been updated successfully!',
+                request,
+                f'✏️ Habit "{updated_habit.name}" has been updated '
+                f'successfully!',
                 extra_tags='habit-edited'
             )
             
@@ -229,7 +270,8 @@ def edit_habit(request, habit_id):
             request.session['notification'] = {
                 'type': 'info',
                 'title': 'Habit Updated!',
-                'message': f'Changes to "{updated_habit.name}" have been saved',
+                'message': f'Changes to "{updated_habit.name}" have been '
+                          f'saved',
                 'icon': '✏️'
             }
             
@@ -244,6 +286,7 @@ def edit_habit(request, habit_id):
     
     return render(request, 'habits/edit_habit.html', context)
 
+
 @login_required
 def delete_habit(request, habit_id):
     """
@@ -257,7 +300,7 @@ def delete_habit(request, habit_id):
         
         # Enhanced notification for habit deletion
         messages.warning(
-            request, 
+            request,
             f'🗑️ Habit "{habit_name}" has been deleted from your tracker.',
             extra_tags='habit-deleted'
         )
@@ -278,6 +321,7 @@ def delete_habit(request, habit_id):
     
     return render(request, 'habits/delete_habit.html', context)
 
+
 @login_required
 def toggle_habit_completion(request, habit_id):
     """
@@ -291,8 +335,9 @@ def toggle_habit_completion(request, habit_id):
     if habit.completed:
         # Celebration notification for completion
         messages.success(
-            request, 
-            f'🎉 Congratulations! You completed "{habit.name}"! Keep up the great work!',
+            request,
+            f'🎉 Congratulations! You completed "{habit.name}"! '
+            f'Keep up the great work!',
             extra_tags='habit-completed'
         )
         
@@ -306,7 +351,7 @@ def toggle_habit_completion(request, habit_id):
     else:
         # Notification for marking as pending
         messages.info(
-            request, 
+            request,
             f'📝 Habit "{habit.name}" has been marked as pending.',
             extra_tags='habit-pending'
         )
@@ -321,6 +366,7 @@ def toggle_habit_completion(request, habit_id):
     
     return redirect('home')
 
+
 @login_required
 def get_notification(request):
     """
@@ -330,6 +376,7 @@ def get_notification(request):
     if notification:
         return JsonResponse(notification)
     return JsonResponse({})
+
 
 @login_required
 def mark_habit_completed_ajax(request, habit_id):

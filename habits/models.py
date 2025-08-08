@@ -3,32 +3,34 @@ from django.contrib.auth.models import User
 import uuid
 from datetime import datetime, timedelta
 
+
 class Category(models.Model):
-    name = models.CharField(max_length=50, unique=True)  # Unique category name
+    name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
-        return self.name  # String representation of the category
+        return self.name
 
 
 class Habit(models.Model):
-    name = models.CharField(max_length=100)  # Name of the habit
-    description = models.TextField(blank=True, null=True)  # Optional description
-    created_at = models.DateTimeField(auto_now_add=True)  # Automatically set when created
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)  # Link to Category
-    completed = models.BooleanField(default=False)  # Whether the habit is completed
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Link to User
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    completed = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name  # String representation of the habit
+        return self.name
 
 
 class Progress(models.Model):
-    date = models.DateField()  # Date of the progress entry
-    status = models.BooleanField(default=False)  # Whether the habit was completed
-    habit = models.ForeignKey(Habit, on_delete=models.CASCADE)  # Link to Habit
+    date = models.DateField()
+    status = models.BooleanField(default=False)
+    habit = models.ForeignKey(Habit, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.habit.name} - {self.date} - {'Completed' if self.status else 'Not Completed'}"
+        status_text = 'Completed' if self.status else 'Not Completed'
+        return f"{self.habit.name} - {self.date} - {status_text}"
 
 
 class PasswordResetToken(models.Model):
@@ -40,7 +42,9 @@ class PasswordResetToken(models.Model):
     def is_valid(self):
         """Check if token is still valid (24 hours)"""
         expiry_time = self.created_at + timedelta(hours=24)
-        return not self.is_used and datetime.now().replace(tzinfo=None) < expiry_time.replace(tzinfo=None)
+        return (not self.is_used and 
+                datetime.now().replace(tzinfo=None) < 
+                expiry_time.replace(tzinfo=None))
     
     def mark_as_used(self):
         """Mark token as used"""

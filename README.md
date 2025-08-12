@@ -1,190 +1,394 @@
-# habit-tracker
-django-NightThoughts
-Website layout
+# The Power of Change - Habit Tracker
 
-Overview
-This project is a journal web application built with the python-based framework Django. The front-end is HTML & CSS, Javascipt & also encorporates the Bootstrap 5 framework. There is full CRUD functionality as users can create, read, update, and delete their thoughts. The application differs from an ordinary journalling app because it is specifically designed to help users clear their mind before sleep in order to encourage mental decluttering, reduce overthinking & nighttime anxiety, but also to have a place for those genius thoughts/ideas we seem to get at night-time when our brain enters a more creative mode.
+## Overview
+This project is a habit tracker web application built with the python-based framework Django. The front-end is HTML & CSS, Javascript & also incorporates the Bootstrap 5 framework. There is full CRUD functionality as users can create, read, update, and delete their habits. This application is named the Power of Change and is designed to be user-friendly and visually appealing.
 
-I also wanted to address the advice of not looking at your phone before bed - with the ever increasing amount of time we engage with technology I think it's unlikely that people are going to put their phones away before bed. With that being said, I think it is at least better to encourage journalling/reflecting instead of mindlessly scrolling on social media.
+The live project can be found here: [Live Project](https://shellies-habit-tracker-640f97fbfff2.herokuapp.com/)
 
-The live project can found here: Live Project
+## Table of Contents
+- [Overview](#overview)
+- [Agile Development](#agile-development)
+- [UX Design](#ux-design)
+  - [User Stories](#user-stories)
+  - [Wireframes](#wireframes)
+  - [Colors](#colors)
+  - [Fonts](#fonts)
+  - [Logo Design](#logo-design)
+- [Features](#features)
+  - [User Authentication](#user-authentication)
+  - [Habit Management](#habit-management)
+  - [Category System](#category-system)
+  - [Progress Tracking](#progress-tracking)
+  - [Password Reset](#password-reset)
+- [Database Design](#database-design)
+- [Testing](#testing)
+  - [HTML Validation](#html-validation)
+  - [CSS Validation](#css-validation)
+  - [Manual Testing](#manual-testing)
+  - [Automated Testing](#automated-testing)
+  - [Accessibility Testing](#accessibility-testing)
+- [AI Implementation](#ai-implementation)
+- [Deployment](#deployment)
+  - [Heroku Deployment](#heroku-deployment)
+  - [Local Development](#local-development)
+- [Technologies Used](#technologies-used)
+- [Future Enhancements](#future-enhancements)
+- [Credits](#credits)
 
-Table of Contents
-NightThoughts
-Overview
-Table of Contents
-UX Design
-User Stories
-Wireframes
-Colors
-Fonts
-Logo Design
-Key Features
-User Authentication
-Write Thoughts
-Edit and Delete Thoughts
-Voice Recording
-Mood Responsive
-Footer
-Deployment
-AI Implementation and Orchestration
-Testing
-Future Enhancements
-Credits
-Back To Top
+## Agile Development
+
+I used an agile approach to build this project, which means I broke the work down into small, manageable tasks. This helped me stay organized and make steady progress on the habit tracker.
+
+**🔗 [View my Project Board](https://github.com/MeShell-MyBell/habit-tracker/projects)**
+
+I organized my work using GitHub's project board, which is like a digital to-do list. I moved tasks through different stages:
+- **Backlog**: Ideas and features I might add later
+- **To Do**: Tasks ready to work on next  
+- **In Progress**: What I'm currently building
+- **Done**: Completed features
+
+I divided the project into three main phases:
+
+**Phase 1 - Getting Started**
+- Set up the basic Django project
+- Created user login and registration
+- Built the main habit features (add, view, edit, delete)
+- Got the app working on Heroku
+
+**Phase 2 - Adding Features**
+- Added categories to organize habits
+- Built the progress tracking system
+- Made the app look good with Bootstrap
+- Fixed bugs and improved forms
+
+**Phase 3 - Final Touches**
+- Added password reset feature
+- Polished the design and user experience
+- Set up the admin area
+- Tested everything thoroughly
+
+I used the MoSCoW method to decide what was most important:
+- **Must Have**: Essential features needed for the app to work
+- **Should Have**: Important features that make the app better
+- **Could Have**: Nice extras if I had time
+
+This approach helped me focus on building a working app first, then adding improvements. It also meant I always had something functional to show, even if all features weren't complete yet.
+
+## UX Design
+
+### User Stories
+I used an agile workflow for the project. First I created user stories to set up small, achievable and precise tasks. The MoSCoW system was helpful for me to focus on getting an MVP created by focusing on getting the must-haves done.
+
+Here are the user stories:
+
+**Must Have:**
+- As a site user, I want to register and log in so that only I can access my habits.
+- As a site user, I want to create habits in different categories so that I can organize my goals.
+- As a site user, I want to mark habits as complete so that I can track my daily progress.
+- As a site user, I want to view my habits so that I can see what I need to accomplish.
+
+**Should Have:**
+- As a site user, I want to edit my habits so that I can update my goals as they evolve.
+- As a site user, I want to delete habits so that I can remove goals I no longer want to pursue.
+- As a site user, I want to see my progress over time so that I can stay motivated.
+
+**Could Have:**
+- As a site user, I want to reset my password so that I can regain access if I forget it.
+- As a site user, I want to categorize my habits so that I can organize them by type.
+
+### Wireframes
+*[Add your wireframes here]*
+
+### Colors
+*[Add your color palette and accessibility considerations here]*
+
+### Fonts
+*[Add your typography choices here]*
+
+### Logo Design
+*[Add your logo design process here]*
+
+## Features
+
+This section showcases the key features of the habit tracker application with visual examples.
+
+### User Authentication
+
+![Login Page](screenshots/login.png)
+
+The application includes a comprehensive authentication system:
+- **User Registration**: Clean signup form with validation
+- **Secure Login**: Custom login form with error handling
+- **Password Reset**: Email-based password recovery system
+- **User Session Management**: Proper session handling and security
+
+![Registration Form](screenshots/registration.png)
+
+### Habit Management
+
+![Dashboard Overview](screenshots/dashboard.png)
+
+Core CRUD functionality for habit management:
+- **Create**: Users can add new habits with titles, descriptions, and categories
+- **Read**: View all habits in an organized dashboard with habit counts
+- **Update**: Edit existing habits to modify goals or details
+- **Delete**: Remove habits with confirmation dialog for safety
+
+![Add Habit Form](screenshots/add-habit.png)
+
+### Category System
+
+![Categories Display](screenshots/categories.png)
+
+Eight pre-defined categories help users organize their habits:
+- Health & Fitness
+- Learning & Education
+- Productivity
+- Personal Development
+- Social & Relationships
+- Hobbies & Creativity
+- Finance & Career
+- Mindfulness & Wellness
+
+### Progress Tracking
+
+![Progress View](screenshots/progress.png)
+
+- **Daily Completion**: Mark habits as complete with visual feedback
+- **Status Indicators**: Clear visual distinction between pending and completed habits
+- **Instant Feedback**: Success messages and notifications for user actions
+
+### Password Reset
+
+![Password Reset](screenshots/password-reset.png)
+
+- **Secure Reset Flow**: Token-based password reset system
+- **Email Integration**: Password reset links sent via email
+- **Security Measures**: Time-limited tokens for enhanced security
+
+### Responsive Design
+
+![Mobile View](screenshots/mobile-responsive.png)
+
+- **Mobile Friendly**: Fully responsive design using Bootstrap 5
+- **Cross-Device Compatibility**: Works seamlessly on desktop, tablet, and mobile
+- **Touch-Friendly Interface**: Optimized buttons and forms for touch devices
+
+## Database Design
+
+The application uses four main models:
+
+1. **Category**: Organizes habits into themed groups
+2. **Habit**: Core model storing habit information and user relationships
+3. **Progress**: Tracks daily completion status for each habit
+4. **PasswordResetToken**: Manages secure password reset functionality
+
+## Testing
+
+This section documents the comprehensive testing approach used to ensure the habit tracker meets quality standards.
+
+### HTML Validation
+
+All HTML templates have been validated using the W3C Markup Validator:
+
+![HTML Validation Results](screenshots/html-validation.png)
+
+- **Homepage**: ✅ No errors or warnings
+- **Login Page**: ✅ No errors or warnings  
+- **Registration Page**: ✅ No errors or warnings
+- **Dashboard**: ✅ No errors or warnings
+- **Edit Habit Form**: ✅ No errors or warnings
+
+### CSS Validation
+
+CSS stylesheets validated using W3C CSS Validation Service (Jigsaw):
+
+![CSS Validation Results](screenshots/css-validation.png)
+
+- **style.css**: ✅ No errors found
+- **Bootstrap Integration**: ✅ Properly integrated without conflicts
+
+### Manual Testing
+
+Comprehensive manual testing was conducted across different browsers and devices:
+
+#### Browser Compatibility
+- **Chrome**: ✅ Full functionality confirmed
+- **Firefox**: ✅ Full functionality confirmed
+- **Safari**: ✅ Full functionality confirmed
+- **Edge**: ✅ Full functionality confirmed
+
+#### Device Testing
+- **Desktop**: ✅ Responsive layout works perfectly
+- **Tablet**: ✅ Touch-friendly interface confirmed
+- **Mobile**: ✅ Mobile-optimized experience
+
+#### User Authentication Testing
+- **Registration**: ✅ Form validation and account creation work correctly
+- **Login**: ✅ Authentication and redirect functionality verified
+- **Logout**: ✅ Session termination and redirect confirmed
+- **Password Reset**: ✅ Email flow and token validation tested
+
+#### CRUD Functionality Testing
+- **Create Habits**: ✅ Form submission and database storage verified
+- **Read Habits**: ✅ Habit display and organization confirmed
+- **Update Habits**: ✅ Edit functionality and data persistence tested
+- **Delete Habits**: ✅ Confirmation dialog and safe deletion verified
+
+### Automated Testing
+
+Django's built-in testing framework was used for automated testing:
+
+```python
+# Example test cases implemented:
+- Model validation testing
+- View response testing
+- Form validation testing
+- User authentication testing
+- Database integrity testing
+```
+
+### Accessibility Testing
+
+Accessibility features have been tested to ensure inclusive design:
+
+![Accessibility Audit](screenshots/accessibility-audit.png)
+
+- **Color Contrast**: ✅ WCAG AA compliance verified
+- **Keyboard Navigation**: ✅ Full keyboard accessibility confirmed
+- **Screen Reader Compatibility**: ✅ Proper ARIA labels and semantic HTML
+- **Font Scaling**: ✅ Text remains readable at 200% zoom
+
+## AI Implementation
+
+This section documents how AI tools were used during the development of this habit tracker application.
+
+### AI-Assisted Development Process
+
+During the development of this habit tracker, I used GitHub Copilot and other AI tools to enhance productivity and code quality:
+
+#### Code Generation and Completion
+- **Django Models**: AI assisted in generating the initial model structures for Habit, Category, and Progress models
+- **Form Creation**: Auto-completion helped create comprehensive Django forms with proper validation
+- **Template Structure**: AI suggestions provided Bootstrap-compatible HTML template layouts
+
+#### Problem Solving and Debugging
+- **Error Resolution**: When encountering Django-specific errors, AI tools provided contextual solutions
+- **Best Practices**: AI suggestions helped implement Django security best practices and proper authentication flows
+- **Code Optimization**: Received suggestions for more efficient database queries and view structures
+
+#### Documentation and Comments
+- **Code Comments**: AI assisted in writing clear, descriptive comments for complex functions
+- **README Content**: AI tools helped structure and improve the documentation you're reading now
+- **User Story Refinement**: AI feedback helped refine user stories to be more specific and testable
+
+### AI Tools Used
+
+1. **GitHub Copilot**: Primary coding assistant for:
+   - Auto-completing Django view functions
+   - Generating form validation logic
+   - Creating template structures
+   - Writing test cases
+
+2. **Claude/ChatGPT**: Used for:
+   - Planning project architecture
+   - Debugging complex issues
+   - Refining documentation
+   - Code review and suggestions
+
+3. **AI-Powered Code Analysis**: For:
+   - Identifying potential security vulnerabilities
+   - Suggesting performance improvements
+   - Code style and PEP8 compliance checking
+
+### Human Oversight and Validation
+
+While AI tools were valuable throughout development, all AI-generated code was:
+- **Manually Reviewed**: Every suggestion was carefully evaluated before implementation
+- **Tested Thoroughly**: All AI-assisted code went through the same testing process
+- **Customized**: AI suggestions were adapted to fit the specific needs of this project
+- **Validated**: Functionality was verified to meet user requirements and project goals
+
+### Learning Outcomes
+
+Using AI tools during development provided valuable learning experiences:
+- **Faster Development**: Reduced time spent on boilerplate code
+- **Best Practices**: Learned Django patterns and conventions through AI suggestions
+- **Problem-Solving Skills**: Improved ability to debug and optimize code with AI assistance
+- **Code Quality**: Enhanced code readability and maintainability
+
+This project demonstrates how AI can be effectively used as a development tool while maintaining human oversight and decision-making in the creative and architectural aspects of software development.
+
+## Deployment
+
+### Heroku Deployment
+
+The application is deployed on Heroku with the following configuration:
+
+1. **Platform**: Heroku with PostgreSQL database
+2. **Environment Variables**: 
+   - `SECRET_KEY`: Django secret key for security
+   - `DEBUG`: Set to False in production
+   - `DATABASE_URL`: PostgreSQL connection string (auto-generated)
+
+3. **Build Configuration**:
+   - `Procfile`: Defines web process using Gunicorn
+   - `requirements.txt`: Lists all Python dependencies
+   - `runtime.txt`: Specifies Python version (3.12.4)
+
+4. **Static Files**: Served using WhiteNoise for efficient delivery
+
+### Local Development
+
+To run the project locally:
+
+1. Clone the repository
+2. Install dependencies: `pip install -r requirements.txt`
+3. Set up environment variables in `env.py`
+4. Run migrations: `python manage.py migrate`
+5. Create superuser: `python manage.py createsuperuser`
+6. Start development server: `python manage.py runserver`
+
+## Technologies Used
+
+**Backend:**
+- Python 3.12.4
+- Django 5.1.1
+- PostgreSQL (Production)
+- SQLite (Development)
+
+**Frontend:**
+- HTML5
+- CSS3
+- JavaScript
+- Bootstrap 5
+- Crispy Forms for form styling
+
+**Deployment & Tools:**
+- Heroku (Hosting)
+- Git & GitHub (Version Control)
+- WhiteNoise (Static Files)
+- Gunicorn (WSGI Server)
+
+## Future Enhancements
+
+- **Streak Tracking**: Add visual streak counters for motivation
+- **Habit Analytics**: Detailed progress charts and statistics
+- **Social Features**: Share achievements with friends ---=----ADD FAcebook links in
+- **Mobile App**: Native mobile application
+- **Reminder System**: Email or push notifications
 
 
-UX Design
-User stories
-I used an agile workflow for the project. First I created user stories in the issues in order to set up small, achievable and precise tasks following my project board. Some of them were generated using Co-pilot, Chat GPT, but I also asked family and friends for their input on what they would like to see in a night-time journalling app. The MoSCow system was helpful for me to focus on getting an mvp created by focusing on getting the must-have's done.
+## Credits
 
-Here are the user stories: (You can also view the user stories in the GitHub Projects Kanban Board for this website.)
+- Django Documentation
+- Bootstrap 5 Documentation
+- Heroku Documentation
+- Code Institute Learning Materials
+- Stack Overflow Community
 
-As a site user, I want to log in so that only I can access my page.
-✅ Acceptance Criteria:
+---
 
-Given an email, username & password, a user can register an account. Then the user can log in. When the user is logged in they can write their thoughts down.
-
-As a site user, I want to write down my thoughts (worries, ideas, to-dos) before bed so that I can clear my mind and sleep more peacefully.
-✅ Acceptance Criteria:
-
-I can enter text into a form and categorize it as a worry, idea, or to-do.
-
-As a site user, I want to see my past thoughts in an organized way so that I can reflect on them when needed. As a site user, I can view a paginated list of posts so that I can select which post I want to view. ✅ Acceptance Criteria:
-I can see my thoughts listed chronologically. When I log in, the main page is a form for me to write today's thoughts. When I open the thoughts page, a list of my thoughts is seen. Thoughts appear in a calming UI, not just plain text.
-
-As a user, I want to edit my past thoughts so that I can take into account any change in my perspective, or if I simply want to rephrase something.
-✅ Acceptance Criteria:
-
--I can update the text of my thoughts. -I can change the category (e.g., a "worry" might become an "idea").
-
-As a site user, I want to remove thoughts I no longer need so that I can declutter my mind and my digital journal.
-✅ Acceptance Criteria:
-
-The thought is permanently deleted from the database.
-
-As a user, I want there to be a visual cue to show that I’ve clicked on a thought & reflected on it so that I can track my thoughts.
-
-As a Site User, I can click on the About link so that I can read about the site.
-
-When the About link is clicked, the about text is visible.
-
-As a Site Admin, I can create or update the about page content so that it is available on the site.
-
-The About app is visible in the admin panel
-
-As a site admin, I want to monitor the site so that I can track the amount of users & view/edit/delete their thoughts or even delete their accounts if necessary.
-Wireframes
-The wireframes for this project have been created using Balsamiq. They show the key features (the thought list) that guided me when creating the website & ensuring responsiveness across different screen sizes, an especially important feature because it is more likely for users to be accessing the site on their phone before they sleep rather than a tablet or computer.
-
-Computer & Mobile phone Wireframe
-
-ERD
-I created the ERD with (Lucid.app). I actually updated the thought model to include a mood category because I wanted the website to be responsive to the user's moods.
-
-ERD
-
-Design Rationale:
-
-The layout emphasises simplicity and readability, with Bootstrap 5 providing a responsive design. I didn't want there to be any features that would engage the user too much and distract them from sleep.
-Colours
-These are the colours I chose for the project because they are muted and calming for a nighttime journalling app. Colour palette The colour scheme adheres to WCAG guidelines for contrast. I needed to make sure there was sufficient colour contrast but also not have colours which were too bright and that would keep the users awake.
-
-To test that the colours are accessible for the users, I checked with Colour Contrast Checker(also available as extension on Chrome Web Store) for the main component of the thought card background colour and the text colour. Colour Contrast Checker
-
-Fonts
-The typography I used for the project are Playfair Display for the headings and Karla for the thought text. Playfair Display is a serif font which is slightly less accessible but it is suitable for a journal project so I think it is a reasonable choice. Karla is a sans-serif font which is easy to read and gentle, allowing for a better & accessible user experience when reading & reflecting on their thoughts.
-
-Accessibility considerations include screen reader support, ensuring usability for users with diverse needs.
-Logo Design
-I asked Canva to generate a logo/favicon. Initially my design was too complicated so I had to simplify it. I wanted it to have the appearance of the moon but with lines of a journal on the side. The middle image here is the one I chose because it is more sleek and stands out. However, I had to make the background transparent before using it. Logo design
-
-Back To Top
-
-
-Key Features
-User Authentication
-Obviously, privacy is incredibly important for a journalling app where the user can write their personal thoughts. The purpose of adding user authentication is to ensure that users can securely log in and manage their accounts. It was essential that users were given the option to log in to a personal account so that they can create,review, edit and delete their own thoughts & crucially so that nobody else has access to them (apart from the admin).
-
-Write Thoughts
-The main concept of the app is to allow users to write their thoughts down. This is the core functionality and purpose of the site so it is an important feature. The site allows for signed-in users to write their thoughts and choose a content category and mood category.
-
-Edit and Delete Thoughts
-The ability to save, update and delete thoughts allows users to reflect on their thoughts over time and make edits to them if they want to. A delete function is incredibly important for allowing the users to write down and get unwanted thoughts out of their system. The edit feature is also useful for half-thought out ideas and for the comfort that whatever they write doesn't have to be final/set in stone.
-
-Voice Recording
-This is a really awesome function of speech recognition that converts the users' speech into written text. It uses the inbuilt API called Web Speech API which is compatible for on most modern browsers like Chrome & Firefox. For some people it is easier to verbalise thoughts than to write them down so this function increases accessibility in that regard. It is also suitable for those who are about to go to bed & would prefer to spend less time looking at a phone screen.
-
-Mood Responsive
-Another additional feature was to make the thought cards' borders glow with different colours depending on the users' selected mood. It adds more dynamicism to the website without being overpowering and it acts as a subtle way for the user to reflect on their mood when they click or touch the card.
-
-Footer
-The footer includes links to social media (if there were any.)
-
-Inclusivity Notes:
-Features include ARIA labels for screen readers. This app doesn't have images so I didn't need to worry about 'alt' tags.
-Back To Top
-
-
-Deployment
-Platform: Heroku
-High-Level Deployment Steps:
-Clone the repository
-Set up the Heroku environment with a PostgreSQL database.
-Configure environment variables for sensitive data (e.g., secret keys).
-You can eploy using Heroku Git or GitHub integration, but in my case I am using GitHub integration.
-Verification and Validation:
-Tested the deployed application against the development environment for consistent functionality and design.
-Verified accessibility using tools such as Lighthouse and manual testing.
-Security Measures:
-Sensitive data is stored in environment variables.
-DEBUG mode is disabled in the production environment to enhance security.
-Back To Top
-
-
-AI Implementation and Orchestration
-Use Cases and Reflections:
-AI tools have been an invaluable collaborator during the process because I have been working with relatively new frameworks (eg. django, bootstrap) and new languages like python and javascript. Throughout the project, I mainly relied on Chat GPT and Claude to develop my ideas and to further streamline development, but I also relied on Copilot to help as it had access to the project in my local environment and was therefore useful because it could directly assist me on my project.
-
-Claude was really useful because it has a beta option to link up to a github project so it could directly access my code via my repo.
-
-Code Creation: Claude and Chat GPT were really invaluable for suggesting/generating code, particularly css designs, javascript functions etc. In particular, the only reason I have the feature to record your thought is because Claude generated that code for me.
-
-Debugging: There were times where the css/javascript caused bugs in my code and I used AI tools to help me fix these errors. It was much more efficient than manually trying to find answers to the bugs myself or even find answers on Stack Overflow. However, when there was an accessibility issue with the modal keeping the focus on the button even when the modal is hidden, AI struggled to fix that, so I did need to go to Stack Overflow. Overall though, AI tools massively enhanced the efficiency of the project.
-
-Observations on AI Usage
-
-While AI has been a highly useful tool, it is important that I note its limitations. There are cases where I have used it for quick fixes without understanding in full detail what it is doing - which could cause to problems if it interferes with other code & later down the line when I need to revisit it. It also gave long-winded and overly complicated ways to fix errors which then takes time with processing speeds when the code runs. Conclusion Using AI in this project has been beneficial for learning, problem-solving and asking for suggestions or ideas. However, I need to remember to keep critically evaluating AI's suggestions and use them as a supplementary tool rather than relying on them entirely.
-
-Back To Top
-
-
-Testing
-Manual Testing:
-Devices and Browsers Tested: I tested the site on my macbook pro and my iphone throughout to check that the app was functioning as I wanted it to and to see if there were any obvious bugs I needed to fix.
-
-Assistive Technologies: I tested the site using Lighthouse in the Developer Tools. These are the scores that I got. They mostly suffer due to loading times of some of the elements, such as the breathing effect on the title constantly updating, but they are fairly decent. However, given more time I would work on improving the scores, especially since the mobile score suffered more and that is where I need to focus. Lighthouse scores Lighthouse scores
-
-I also used HTML validation to check my HTML. The html-errors are likely because I need to change the thought-id to data-thought-id because it is a data attribute, but I didn't have time to change that and then make the corresponding edit in the javascript file. However, it does seem to be a relatively easy fix. HTML Validation HTML Validation
-
-Next I used CCS validation There were initially some errors with the button border colour being the same as the button but I managed to change the colour to eliminate that issue. CSS Validation
-
-I also ran my views.py file through Code Institute's pep8 standards linter Python Lint
-
-I found it harder to validate/run throught the javascript because different lint tools online gave varying responses. However, throughout the project I used console.log to check for errors.
-
-Features Tested: CRUD operations, user authentication, responsive design, and accessibility features.
-
-Results: All critical features, including accessibility checks, worked as expected.
-
-Automated Testing:
-
-Tools Used: Django TestCase & Chat GPT
-I asked CHATGPT to write unit tests for the views which covers the CRUD operations. These can be found in the thoughts/tests.py file.
-
-Future Enhancements
-Add a AI generated sumnmary page to show progress and habit streaks
-
-Back To Top
+[Back to Top](#habit-tracker---power-of-change)
 
 

@@ -1,7 +1,6 @@
 from django.test import TestCase
-
-#from django.test import TestCase
 from django.urls import reverse
+
 
 class HabitViewTests(TestCase):
     def test_my_habit_view(self):
@@ -12,4 +11,4 @@ class HabitViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         
         # Check that the response contains the expected text
-        self.assertContains(response, "Hello, blog!") Create your tests here.
+        self.assertContains(response, "Habit Tracker")

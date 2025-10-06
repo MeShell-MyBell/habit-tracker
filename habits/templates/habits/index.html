@@ -15,11 +15,41 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Custom Styles -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <!-- Browser compatibility fixes -->
+    <style>
+        /* Chrome-specific fixes */
+        @supports (-webkit-backdrop-filter: blur()) or (backdrop-filter: blur()) {
+            .navbar {
+                -webkit-backdrop-filter: blur(10px);
+                backdrop-filter: blur(10px);
+            }
+        }
+        
+        /* Fallback for browsers without backdrop-filter support */
+        @supports not (backdrop-filter: blur()) {
+            .navbar {
+                background: rgba(156, 39, 176, 0.95) !important;
+            }
+        }
+        
+        /* Ensure forms work in all browsers */
+        form {
+            width: 100%;
+        }
+        
+        /* Fix button compatibility */
+        .btn {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+    </style>
 </head>
 
 <body>
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(156, 39, 176, 0.9); backdrop-filter: blur(10px);">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(156, 39, 176, 0.9);">
         <div class="container">
             <a class="navbar-brand fw-bold" href="{% url 'home' %}">
                 <i class="fas fa-chart-line me-2"></i>Habit Tracker
@@ -28,7 +58,7 @@
             <div class="navbar-nav ms-auto">
                 {% if user.is_authenticated %}
                     <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-user me-1"></i>{{ user.first_name|default:user.username }}
                         </a>
                         <ul class="dropdown-menu">
@@ -60,7 +90,7 @@
             {% for message in messages %}
                 <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
                     {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             {% endfor %}
         {% endif %}
@@ -85,7 +115,7 @@
                         <h2 class="h5 mb-0">Add New Habit</h2>
                     </div>
                     <div class="card-body">
-                        <form method="post">
+                        <form method="post" novalidate>
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 mb-3">
@@ -134,17 +164,20 @@
                                     <div class="habit-actions d-flex flex-column gap-1 ms-3">
                                         <a href="{% url 'toggle_habit_completion' habit.id %}" 
                                            class="btn btn-success btn-sm" 
-                                           title="Mark as completed">
+                                           title="Mark as completed"
+                                           role="button">
                                             <i class="fas fa-check"></i>
                                         </a>
                                         <a href="{% url 'edit_habit' habit.id %}" 
                                            class="btn btn-primary btn-sm" 
-                                           title="Edit habit">
+                                           title="Edit habit"
+                                           role="button">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <a href="{% url 'delete_habit' habit.id %}" 
                                            class="btn btn-danger btn-sm" 
                                            title="Delete habit"
+                                           role="button"
                                            onclick="return confirm('Are you sure you want to delete this habit?')">
                                             <i class="fas fa-trash"></i>
                                         </a>
@@ -181,17 +214,20 @@
                                     <div class="habit-actions d-flex flex-column gap-1 ms-3">
                                         <a href="{% url 'toggle_habit_completion' habit.id %}" 
                                            class="btn btn-warning btn-sm" 
-                                           title="Mark as pending">
+                                           title="Mark as pending"
+                                           role="button">
                                             <i class="fas fa-undo"></i>
                                         </a>
                                         <a href="{% url 'edit_habit' habit.id %}" 
                                            class="btn btn-primary btn-sm" 
-                                           title="Edit habit">
+                                           title="Edit habit"
+                                           role="button">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <a href="{% url 'delete_habit' habit.id %}" 
                                            class="btn btn-danger btn-sm" 
                                            title="Delete habit"
+                                           role="button"
                                            onclick="return confirm('Are you sure you want to delete this habit?')">
                                             <i class="fas fa-trash"></i>
                                         </a>
@@ -218,177 +254,190 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Enhanced Notification System -->
+    <!-- Enhanced Notification System with Browser Compatibility -->
     <script>
-        // Request notification permission on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            // Request browser notification permission
-            if ('Notification' in window && Notification.permission === 'default') {
-                Notification.requestPermission();
+        // Enhanced browser compatibility
+        (function() {
+            'use strict';
+            
+            // Polyfill for older browsers
+            if (!window.fetch) {
+                console.warn('Fetch API not supported, using fallback');
+                return;
             }
             
-            // Check for pending notifications
-            checkForNotifications();
-            
-            // Add celebration animation for completed habits
-            document.querySelectorAll('.alert-success.habit-completed').forEach(function(alert) {
-                addCelebrationAnimation(alert);
-            });
-        });
-        
-        // Function to check for browser notifications
-        function checkForNotifications() {
-            fetch('{% url "get_notification" %}')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.type) {
-                        showBrowserNotification(data);
-                    }
-                })
-                .catch(error => console.log('No notifications'));
-        }
-        
-        // Function to show browser notifications
-        function showBrowserNotification(notificationData) {
-            if ('Notification' in window && Notification.permission === 'granted') {
-                const notification = new Notification(notificationData.title, {
-                    body: notificationData.message,
-                    icon: '/static/favicon.ico', // Add your app icon here
-                    badge: '/static/badge.png',  // Add your badge icon here
-                    vibrate: [200, 100, 200],
-                    tag: 'habit-tracker'
+            // Request notification permission on page load
+            document.addEventListener('DOMContentLoaded', function() {
+                // Request browser notification permission with better error handling
+                if ('Notification' in window && Notification.permission === 'default') {
+                    Notification.requestPermission().then(function(permission) {
+                        console.log('Notification permission:', permission);
+                    }).catch(function(error) {
+                        console.log('Notification permission error:', error);
+                    });
+                }
+                
+                // Check for pending notifications
+                checkForNotifications();
+                
+                // Add celebration animation for completed habits
+                var completedAlerts = document.querySelectorAll('.alert-success.habit-completed');
+                completedAlerts.forEach(function(alert) {
+                    addCelebrationAnimation(alert);
                 });
+            });
+            
+            // Function to check for browser notifications with better error handling
+            function checkForNotifications() {
+                var notificationUrl = document.querySelector('[data-notification-url]');
+                if (!notificationUrl) {
+                    console.log('No notification URL found');
+                    return;
+                }
                 
-                // Auto close after 5 seconds
-                setTimeout(() => notification.close(), 5000);
-                
-                // Add special effects for celebrations
-                if (notificationData.type === 'celebration') {
-                    addPageCelebration();
+                fetch(notificationUrl.getAttribute('data-notification-url'))
+                    .then(function(response) {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(function(data) {
+                        if (data.type) {
+                            showBrowserNotification(data);
+                        }
+                    })
+                    .catch(function(error) {
+                        console.log('No notifications or error:', error);
+                    });
+            }
+            
+            // Function to show browser notifications with fallbacks
+            function showBrowserNotification(notificationData) {
+                if ('Notification' in window && Notification.permission === 'granted') {
+                    try {
+                        var notification = new Notification(notificationData.title, {
+                            body: notificationData.message,
+                            icon: '/static/favicon.ico',
+                            badge: '/static/badge.png',
+                            vibrate: [200, 100, 200],
+                            tag: 'habit-tracker'
+                        });
+                        
+                        // Auto close after 5 seconds
+                        setTimeout(function() {
+                            notification.close();
+                        }, 5000);
+                        
+                        // Add special effects for celebrations
+                        if (notificationData.type === 'celebration') {
+                            addPageCelebration();
+                        }
+                    } catch (error) {
+                        console.log('Notification error:', error);
+                        // Fallback to in-page notification
+                        showToast(notificationData.message, 'success');
+                    }
+                } else {
+                    // Fallback for browsers without notification support
+                    showToast(notificationData.message, 'info');
                 }
             }
-        }
-        
-        // Function to add celebration effects to the page
-        function addPageCelebration() {
-            // Create confetti effect
-            createConfetti();
             
-            // Add temporary celebration class to body
-            document.body.classList.add('celebrating');
-            setTimeout(() => {
-                document.body.classList.remove('celebrating');
-            }, 3000);
-        }
-        
-        // Function to create confetti animation
-        function createConfetti() {
-            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff'];
-            const confettiCount = 50;
-            
-            for (let i = 0; i < confettiCount; i++) {
-                setTimeout(() => {
-                    const confetti = document.createElement('div');
-                    confetti.className = 'confetti';
-                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.left = Math.random() * 100 + 'vw';
-                    confetti.style.animationDelay = Math.random() * 3 + 's';
-                    confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                    document.body.appendChild(confetti);
-                    
-                    // Remove confetti after animation
-                    setTimeout(() => {
-                        confetti.remove();
-                    }, 5000);
-                }, i * 50);
+            // Function to add celebration effects to the page
+            function addPageCelebration() {
+                createConfetti();
+                
+                document.body.classList.add('celebrating');
+                setTimeout(function() {
+                    document.body.classList.remove('celebrating');
+                }, 3000);
             }
-        }
-        
-        // Function to add celebration animation to alerts
-        function addCelebrationAnimation(alert) {
-            alert.style.animation = 'celebration-bounce 0.6s ease-in-out';
             
-            // Add sparkle effects
-            const sparkles = ['✨', '🎉', '🎊', '⭐', '🌟'];
-            sparkles.forEach((sparkle, index) => {
-                setTimeout(() => {
-                    const sparkleEl = document.createElement('span');
-                    sparkleEl.textContent = sparkle;
-                    sparkleEl.className = 'sparkle';
-                    sparkleEl.style.left = Math.random() * 100 + '%';
-                    sparkleEl.style.animationDelay = index * 0.2 + 's';
-                    alert.appendChild(sparkleEl);
-                    
-                    setTimeout(() => sparkleEl.remove(), 2000);
-                }, index * 200);
-            });
-        }
-        
-        // AJAX function for instant habit completion
-        function completeHabitInstantly(habitId, buttonElement) {
-            fetch(`/api/habit/complete/${habitId}/`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Show instant notification
-                    showBrowserNotification(data.notification);
-                    
-                    // Update UI instantly
-                    const habitCard = buttonElement.closest('.habit');
-                    habitCard.style.animation = 'completion-celebration 1s ease-in-out';
-                    
-                    // Show success message
-                    showToast(data.message, 'success');
-                    
-                    // Reload page after animation
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1500);
+            // Function to create confetti animation
+            function createConfetti() {
+                var colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff'];
+                var confettiCount = 50;
+                
+                for (var i = 0; i < confettiCount; i++) {
+                    setTimeout(function(index) {
+                        var confetti = document.createElement('div');
+                        confetti.className = 'confetti';
+                        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                        confetti.style.left = Math.random() * 100 + 'vw';
+                        confetti.style.animationDelay = Math.random() * 3 + 's';
+                        confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                        document.body.appendChild(confetti);
+                        
+                        // Remove confetti after animation
+                        setTimeout(function() {
+                            if (confetti.parentNode) {
+                                confetti.parentNode.removeChild(confetti);
+                            }
+                        }, 5000);
+                    }, i * 50, i);
                 }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showToast('Something went wrong. Please try again.', 'error');
-            });
-        }
-        
-        // Function to show toast notifications
-        function showToast(message, type) {
-            const toast = document.createElement('div');
-            toast.className = `toast-notification toast-${type}`;
-            toast.innerHTML = `
-                <div class="toast-content">
-                    <span class="toast-message">${message}</span>
-                    <button class="toast-close" onclick="this.parentElement.parentElement.remove()">&times;</button>
-                </div>
-            `;
-            
-            document.body.appendChild(toast);
-            
-            // Show toast
-            setTimeout(() => toast.classList.add('show'), 100);
-            
-            // Auto remove after 5 seconds
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 300);
-            }, 5000);
-        }
-        
-        // Add quick completion buttons with instant feedback
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('quick-complete-btn')) {
-                e.preventDefault();
-                const habitId = e.target.getAttribute('data-habit-id');
-                completeHabitInstantly(habitId, e.target);
             }
-        });
+            
+            // Function to add celebration animation to alerts
+            function addCelebrationAnimation(alert) {
+                alert.style.animation = 'celebration-bounce 0.6s ease-in-out';
+                
+                var sparkles = ['✨', '🎉', '🎊', '⭐', '🌟'];
+                sparkles.forEach(function(sparkle, index) {
+                    setTimeout(function() {
+                        var sparkleEl = document.createElement('span');
+                        sparkleEl.textContent = sparkle;
+                        sparkleEl.className = 'sparkle';
+                        sparkleEl.style.left = Math.random() * 100 + '%';
+                        sparkleEl.style.animationDelay = index * 0.2 + 's';
+                        alert.appendChild(sparkleEl);
+                        
+                        setTimeout(function() {
+                            if (sparkleEl.parentNode) {
+                                sparkleEl.parentNode.removeChild(sparkleEl);
+                            }
+                        }, 2000);
+                    }, index * 200);
+                });
+            }
+            
+            // Function to show toast notifications
+            function showToast(message, type) {
+                var toast = document.createElement('div');
+                toast.className = 'toast-notification toast-' + type;
+                toast.innerHTML = 
+                    '<div class="toast-content">' +
+                        '<span class="toast-message">' + message + '</span>' +
+                        '<button class="toast-close" onclick="this.parentElement.parentElement.remove()">&times;</button>' +
+                    '</div>';
+                
+                document.body.appendChild(toast);
+                
+                // Show toast
+                setTimeout(function() {
+                    toast.classList.add('show');
+                }, 100);
+                
+                // Auto remove after 5 seconds
+                setTimeout(function() {
+                    toast.classList.remove('show');
+                    setTimeout(function() {
+                        if (toast.parentNode) {
+                            toast.parentNode.removeChild(toast);
+                        }
+                    }, 300);
+                }, 5000);
+            }
+            
+            // Make functions available globally for compatibility
+            window.showToast = showToast;
+            window.showBrowserNotification = showBrowserNotification;
+            
+        })();
     </script>
+    
+    <!-- Hidden element for notification URL -->
+    <div data-notification-url="{% url 'get_notification' %}" style="display: none;"></div>
 </body>
 </html>

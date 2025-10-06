@@ -19,8 +19,7 @@ except ImportError:
     # For production - get from environment variables
     SECRET_KEY = os.environ.get('SECRET_KEY')
     if not SECRET_KEY:
-        # Generate a fallback secret key for deployment (not recommended for production)
-        SECRET_KEY = 'django-insecure-fallback-key-change-in-production'
+        raise ValueError("SECRET_KEY environment variable must be set for production!")
 
 DEBUG = os.environ.get('DEBUG', 'False').lower() in ('true', '1', 'yes')
 
@@ -150,6 +149,7 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 # Security settings for production
 if not DEBUG:
+    # Enable essential security headers (these were incorrectly set to False)
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     X_FRAME_OPTIONS = 'DENY'
@@ -160,7 +160,7 @@ if not DEBUG:
     # Chrome-specific security settings
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
-    SECURE_SSL_REDIRECT = False  # Set to True if using HTTPS in production
+    SECURE_SSL_REDIRECT = True  # Enable HTTPS redirect for production
 else:
     # Development settings - Chrome compatibility
     CSRF_COOKIE_SECURE = False

@@ -1,394 +1,300 @@
 # The Power of Change - Habit Tracker
 
-## Overview
-This project is a habit tracker web application built with the python-based framework Django. The front-end is HTML & CSS, Javascript & also incorporates the Bootstrap 5 framework. There is full CRUD functionality as users can create, read, update, and delete their habits. This application is named the Power of Change and is designed to be user-friendly and visually appealing.
+## What This Project Is About
+This is a habit tracker web app that helps people build better daily routines! I built it using Django (a Python web framework) and made it look nice with Bootstrap. Users can sign up, add habits they want to track, and mark them as complete each day.
 
-The live project can be found here: [Live Project](https://shellies-habit-tracker-640f97fbfff2.herokuapp.com/)
+The app is called "The Power of Change" because small daily habits can lead to big life changes over time.
 
-## Table of Contents
-- [Overview](#overview)
-- [Agile Development](#agile-development)
-- [UX Design](#ux-design)
-  - [User Stories](#user-stories)
-  - [Wireframes](#wireframes)
-  - [Colors](#colors)
-  - [Fonts](#fonts)
-  - [Logo Design](#logo-design)
-- [Features](#features)
-  - [User Authentication](#user-authentication)
-  - [Habit Management](#habit-management)
-  - [Category System](#category-system)
-  - [Progress Tracking](#progress-tracking)
-  - [Password Reset](#password-reset)
-- [Database Design](#database-design)
-- [Testing](#testing)
-  - [HTML Validation](#html-validation)
-  - [CSS Validation](#css-validation)
-  - [Manual Testing](#manual-testing)
-  - [Automated Testing](#automated-testing)
-  - [Accessibility Testing](#accessibility-testing)
-- [AI Implementation](#ai-implementation)
-- [Deployment](#deployment)
-  - [Heroku Deployment](#heroku-deployment)
-  - [Local Development](#local-development)
-- [Technologies Used](#technologies-used)
-- [Future Enhancements](#future-enhancements)
+## Live Links
+
+🌐 **Try the App**: [The Power of Change - Habit Tracker](https://power-of-change-tracker.herokuapp.com/)
+
+📂 **View the Code**: [GitHub Repository](https://github.com/MeShell-MyBell/habit-tracker)
+
+## What's in This README
+- [What This Project Is About](#what-this-project-is-about)
+- [How I Built This](#how-i-built-this)
+- [What Users Can Do](#what-users-can-do)
+- [User Stories](#user-stories)
+- [App Features](#app-features)
+- [How I Tested Everything](#how-i-tested-everything)
+- [Using AI to Help Build This](#using-ai-to-help-build-this)
+- [How to Run This Project](#how-to-run-this-project)
+- [What I Used to Build This](#what-i-used-to-build-this)
+- [What I Might Add Next](#what-i-might-add-next)
 - [Credits](#credits)
 
-## Agile Development
+## How I Built This
 
-I used an agile approach to build this project, which means I broke the work down into small, manageable tasks. This helped me stay organized and make steady progress on the habit tracker.
+I used something called "Agile development" - basically breaking the work into small chunks instead of trying to build everything at once. This made it much less overwhelming!
 
-**🔗 [View my Project Board](https://github.com/MeShell-MyBell/habit-tracker/projects)**
+**🔗 [See My Project Planning Board](https://github.com/MeShell-MyBell/habit-tracker/projects)**
 
-I organized my work using GitHub's project board, which is like a digital to-do list. I moved tasks through different stages:
-- **Backlog**: Ideas and features I might add later
+### My Planning Process
+I used GitHub's project board like a fancy to-do list. I moved tasks through these stages:
+- **Backlog**: Cool ideas I might add later
 - **To Do**: Tasks ready to work on next  
-- **In Progress**: What I'm currently building
-- **Done**: Completed features
+- **In Progress**: What I'm working on right now
+- **Done**: Finished features ✅
 
-I divided the project into three main phases:
+### How I Broke Down the Work
 
-**Phase 1 - Getting Started**
-- Set up the basic Django project
-- Created user login and registration
+**Step 1 - Get the Basics Working**
+- Set up Django (the web framework)
+- Made user accounts (sign up & log in)
 - Built the main habit features (add, view, edit, delete)
-- Got the app working on Heroku
+- Got it working on the internet (Heroku)
 
-**Phase 2 - Adding Features**
-- Added categories to organize habits
-- Built the progress tracking system
-- Made the app look good with Bootstrap
-- Fixed bugs and improved forms
+**Step 2 - Make It Better**
+- Added categories so people can organize their habits
+- Built progress tracking so users can see their streaks
+- Made it look good with CSS and Bootstrap
+- Fixed bugs and made forms easier to use
 
-**Phase 3 - Final Touches**
-- Added password reset feature
-- Polished the design and user experience
-- Set up the admin area
+**Step 3 - Polish Everything**
+- Added password reset (in case people forget their password)
+- Made the design look professional
+- Set up admin controls
 - Tested everything thoroughly
 
-I used the MoSCoW method to decide what was most important:
-- **Must Have**: Essential features needed for the app to work
-- **Should Have**: Important features that make the app better
+### How I Decided What Was Most Important
+I used the MoSCoW method (it's a planning technique):
+- **Must Have**: Essential stuff the app needs to work
+- **Should Have**: Important features that make it better
 - **Could Have**: Nice extras if I had time
+- **Won't Have**: Things to maybe add later
 
-This approach helped me focus on building a working app first, then adding improvements. It also meant I always had something functional to show, even if all features weren't complete yet.
+This helped me focus on building something that actually worked first, then adding cool features after.
 
-## UX Design
+## What Users Can Do
 
 ### User Stories
-I used an agile workflow for the project. First I created user stories to set up small, achievable and precise tasks. The MoSCoW system was helpful for me to focus on getting an MVP created by focusing on getting the must-haves done.
+These are short descriptions of what different people want to do with the app:
 
-Here are the user stories:
+**Essential Features (Must Have):**
+- As someone new to the app, I want to create an account so I can track my personal habits
+- As a user, I want to add new habits with different categories so I can organize my goals
+- As a user, I want to mark habits as done each day so I can see my progress
+- As a user, I want to see all my habits in one place so I know what to work on
 
-**Must Have:**
-- As a site user, I want to register and log in so that only I can access my habits.
-- As a site user, I want to create habits in different categories so that I can organize my goals.
-- As a site user, I want to mark habits as complete so that I can track my daily progress.
-- As a site user, I want to view my habits so that I can see what I need to accomplish.
+**Important Features (Should Have):**
+- As a user, I want to edit my habits so I can change my goals as I grow
+- As a user, I want to delete habits I no longer want to track
+- As a user, I want to see my progress over time so I stay motivated
 
-**Should Have:**
-- As a site user, I want to edit my habits so that I can update my goals as they evolve.
-- As a site user, I want to delete habits so that I can remove goals I no longer want to pursue.
-- As a site user, I want to see my progress over time so that I can stay motivated.
+**Nice-to-Have Features (Could Have):**
+- As a user, I want to reset my password if I forget it
+- As a user, I want habits organized by category (health, productivity, etc.)
 
-**Could Have:**
-- As a site user, I want to reset my password so that I can regain access if I forget it.
-- As a site user, I want to categorize my habits so that I can organize them by type.
+## App Features
 
-### Wireframes
-*[Add your wireframes here]*
+Here's what the app actually does:
 
-### Colors
-*[Add your color palette and accessibility considerations here]*
+### Sign Up & Log In
 
-### Fonts
-*[Add your typography choices here]*
+The app has a secure account system:
+- **Create Account**: Easy signup form that checks your info
+- **Log In**: Simple login that remembers you're logged in
+- **Password Reset**: Get an email link if you forget your password
+- **Stay Logged In**: The app remembers you until you log out
 
-### Logo Design
-*[Add your logo design process here]*
+![Registration Form](screenshots/registration.jpg)
 
-## Features
+### Managing Your Habits
 
-This section showcases the key features of the habit tracker application with visual examples.
+The main features for tracking habits:
+- **Add New Habits**: Create habits with titles, descriptions, and pick a category
+- **View All Habits**: See everything in a clean dashboard with your habit counts
+- **Edit Habits**: Change your habit details whenever you need to
+- **Delete Habits**: Remove habits you don't want anymore (with a confirmation so you don't delete by accident)
 
-### User Authentication
+### Habit Categories
 
-![Login Page](screenshots/login.png)
+I created 8 different categories to help organize habits:
+- Health & Fitness (exercise, eat better, etc.)
+- Learning & Education (read books, take courses, etc.)
+- Productivity (wake up early, plan my day, etc.)
+- Personal Development (meditation, journaling, etc.)
+- Social & Relationships (call family, meet friends, etc.)
+- Hobbies & Creativity (draw, play music, etc.)
+- Finance & Career (save money, learn skills, etc.)
+- Mindfulness & Wellness (gratitude practice, self-care, etc.)
 
-The application includes a comprehensive authentication system:
-- **User Registration**: Clean signup form with validation
-- **Secure Login**: Custom login form with error handling
-- **Password Reset**: Email-based password recovery system
-- **User Session Management**: Proper session handling and security
+### Track Your Progress
 
-![Registration Form](screenshots/registration.png)
+- **Mark Complete**: Click a button when you complete a habit
+- **Visual Feedback**: See clearly which habits are done vs. not done
+- **Success Messages**: Get encouraging messages when you complete habits
 
-### Habit Management
+### Works on All Devices
 
-![Dashboard Overview](screenshots/dashboard.png)
+- **Mobile Friendly**: Works great on phones and tablets
+- **Responsive Design**: Looks good on any screen size
+- **Touch Friendly**: Easy to tap buttons on mobile
 
-Core CRUD functionality for habit management:
-- **Create**: Users can add new habits with titles, descriptions, and categories
-- **Read**: View all habits in an organized dashboard with habit counts
-- **Update**: Edit existing habits to modify goals or details
-- **Delete**: Remove habits with confirmation dialog for safety
+## How I Tested Everything
 
-![Add Habit Form](screenshots/add-habit.png)
+I made sure the app works properly by testing it in multiple ways:
 
-### Category System
+### Checking the Code Quality
 
-![Categories Display](screenshots/categories.png)
+**HTML Testing**: Used online tools to make sure my HTML code is correct
+- All pages pass validation ✅
+- No broken code or missing tags ✅
 
-Eight pre-defined categories help users organize their habits:
-- Health & Fitness
-- Learning & Education
-- Productivity
-- Personal Development
-- Social & Relationships
-- Hobbies & Creativity
-- Finance & Career
-- Mindfulness & Wellness
+**CSS Testing**: Checked that my styling code is valid
+- CSS follows best practices ✅
+- Works well with Bootstrap ✅
 
-### Progress Tracking
+### Testing in Different Browsers
+I made sure it works everywhere:
+- **Chrome**: ✅ Everything works perfectly
+- **Firefox**: ✅ Everything works perfectly
+- **Safari**: ✅ Everything works perfectly
+- **Edge**: ✅ Everything works perfectly
 
-![Progress View](screenshots/progress.png)
+### Testing on Different Devices
+- **Desktop Computer**: ✅ Looks great on big screens
+- **Tablet**: ✅ Easy to use with touch
+- **Phone**: ✅ All features work on small screens
 
-- **Daily Completion**: Mark habits as complete with visual feedback
-- **Status Indicators**: Clear visual distinction between pending and completed habits
-- **Instant Feedback**: Success messages and notifications for user actions
+### Testing All the Features
+I manually tested every feature to make sure it works:
 
-### Password Reset
+**Account Features**
+- Signing up with new account ✅
+- Logging in and out ✅
+- Password reset email system ✅
 
-![Password Reset](screenshots/password-reset.png)
+**Habit Features**
+- Adding new habits ✅
+- Viewing all habits ✅
+- Editing existing habits ✅
+- Deleting habits safely ✅
+- Marking habits as complete ✅
 
-- **Secure Reset Flow**: Token-based password reset system
-- **Email Integration**: Password reset links sent via email
-- **Security Measures**: Time-limited tokens for enhanced security
+### Making It Accessible
+I made sure people with disabilities can use the app:
+- **Good Color Contrast**: Text is easy to read ✅
+- **Keyboard Navigation**: Can use the app without a mouse ✅
+- **Screen Reader Friendly**: Works with assistive technology ✅
 
-### Responsive Design
+## Using AI to Help Build This
 
-![Mobile View](screenshots/mobile-responsive.png)
+I used AI tools during development to learn faster and write better code:
 
-- **Mobile Friendly**: Fully responsive design using Bootstrap 5
-- **Cross-Device Compatibility**: Works seamlessly on desktop, tablet, and mobile
-- **Touch-Friendly Interface**: Optimized buttons and forms for touch devices
+### How AI Helped Me
 
-## Database Design
+**Learning Django**: When I got stuck, AI helped explain Django concepts in simple terms
 
-The application uses four main models:
+**Writing Code**: AI suggested code patterns and helped me avoid common mistakes
 
-1. **Category**: Organizes habits into themed groups
-2. **Habit**: Core model storing habit information and user relationships
-3. **Progress**: Tracks daily completion status for each habit
-4. **PasswordResetToken**: Manages secure password reset functionality
+**Fixing Bugs**: When something broke, AI helped me understand error messages and find solutions
 
-## Testing
+**Planning**: AI helped me organize my ideas and plan the project structure
 
-This section documents the comprehensive testing approach used to ensure the habit tracker meets quality standards.
+### AI Tools I Used
 
-### HTML Validation
+1. **GitHub Copilot**: Helped me write code faster by suggesting completions
+2. **ChatGPT/Claude**: Answered questions when I was confused about concepts
+3. **AI Code Review**: Helped me spot potential problems in my code
 
-All HTML templates have been validated using the W3C Markup Validator:
+### Important Note About AI
+While AI was super helpful, I made sure to:
+- **Understand every suggestion**: I didn't just copy/paste AI code
+- **Test everything**: All AI-suggested code went through the same testing
+- **Learn from it**: I used AI as a teaching tool, not a replacement for learning
+- **Make my own decisions**: I chose what features to build and how to build them
 
-![HTML Validation Results](screenshots/html-validation.png)
+## How to Run This Project
 
-- **Homepage**: ✅ No errors or warnings
-- **Login Page**: ✅ No errors or warnings  
-- **Registration Page**: ✅ No errors or warnings
-- **Dashboard**: ✅ No errors or warnings
-- **Edit Habit Form**: ✅ No errors or warnings
+If you want to run this on your own computer:
 
-### CSS Validation
+### What You Need First
+- Python installed on your computer
+- Git for downloading the code
+- A code editor like VS Code
 
-CSS stylesheets validated using W3C CSS Validation Service (Jigsaw):
+### Steps to Get It Running
 
-![CSS Validation Results](screenshots/css-validation.png)
+1. **Download the code**
+   ```
+   git clone https://github.com/MeShell-MyBell/habit-tracker.git
+   cd habit-tracker
+   ```
 
-- **style.css**: ✅ No errors found
-- **Bootstrap Integration**: ✅ Properly integrated without conflicts
+2. **Install the required packages**
+   ```
+   pip install -r requirements.txt
+   ```
 
-### Manual Testing
+3. **Set up the database**
+   ```
+   python manage.py migrate
+   ```
 
-Comprehensive manual testing was conducted across different browsers and devices:
+4. **Create an admin account**
+   ```
+   python manage.py createsuperuser
+   ```
 
-#### Browser Compatibility
-- **Chrome**: ✅ Full functionality confirmed
-- **Firefox**: ✅ Full functionality confirmed
-- **Safari**: ✅ Full functionality confirmed
-- **Edge**: ✅ Full functionality confirmed
+5. **Start the app**
+   ```
+   python manage.py runserver
+   ```
 
-#### Device Testing
-- **Desktop**: ✅ Responsive layout works perfectly
-- **Tablet**: ✅ Touch-friendly interface confirmed
-- **Mobile**: ✅ Mobile-optimized experience
+6. **Open your browser** and go to `http://127.0.0.1:8000`
 
-#### User Authentication Testing
-- **Registration**: ✅ Form validation and account creation work correctly
-- **Login**: ✅ Authentication and redirect functionality verified
-- **Logout**: ✅ Session termination and redirect confirmed
-- **Password Reset**: ✅ Email flow and token validation tested
+### How It's Deployed Online
+The live version runs on Heroku (a hosting service) and uses:
+- **PostgreSQL**: A more powerful database for the live site
+- **Gunicorn**: A web server that handles multiple users
+- **WhiteNoise**: Serves CSS and image files efficiently
 
-#### CRUD Functionality Testing
-- **Create Habits**: ✅ Form submission and database storage verified
-- **Read Habits**: ✅ Habit display and organization confirmed
-- **Update Habits**: ✅ Edit functionality and data persistence tested
-- **Delete Habits**: ✅ Confirmation dialog and safe deletion verified
+## What I Used to Build This
 
-### Automated Testing
+**Main Programming Stuff:**
+- **Python**: The main programming language
+- **Django**: Web framework that handles the backend
+- **HTML/CSS**: For the webpage structure and styling
+- **JavaScript**: For interactive features
+- **Bootstrap**: CSS framework that makes things look professional
 
-Django's built-in testing framework was used for automated testing:
+**Database:**
+- **SQLite**: Simple database for development
+- **PostgreSQL**: More powerful database for the live site
 
-```python
-# Example test cases implemented:
-- Model validation testing
-- View response testing
-- Form validation testing
-- User authentication testing
-- Database integrity testing
-```
+**Tools & Services:**
+- **VS Code**: Code editor
+- **Git & GitHub**: For saving and sharing code
+- **Heroku**: Hosting service for the live app
 
-### Accessibility Testing
+## What I Might Add Next
 
-Accessibility features have been tested to ensure inclusive design:
-
-![Accessibility Audit](screenshots/accessibility-audit.png)
-
-- **Color Contrast**: ✅ WCAG AA compliance verified
-- **Keyboard Navigation**: ✅ Full keyboard accessibility confirmed
-- **Screen Reader Compatibility**: ✅ Proper ARIA labels and semantic HTML
-- **Font Scaling**: ✅ Text remains readable at 200% zoom
-
-## AI Implementation
-
-This section documents how AI tools were used during the development of this habit tracker application.
-
-### AI-Assisted Development Process
-
-During the development of this habit tracker, I used GitHub Copilot and other AI tools to enhance productivity and code quality:
-
-#### Code Generation and Completion
-- **Django Models**: AI assisted in generating the initial model structures for Habit, Category, and Progress models
-- **Form Creation**: Auto-completion helped create comprehensive Django forms with proper validation
-- **Template Structure**: AI suggestions provided Bootstrap-compatible HTML template layouts
-
-#### Problem Solving and Debugging
-- **Error Resolution**: When encountering Django-specific errors, AI tools provided contextual solutions
-- **Best Practices**: AI suggestions helped implement Django security best practices and proper authentication flows
-- **Code Optimization**: Received suggestions for more efficient database queries and view structures
-
-#### Documentation and Comments
-- **Code Comments**: AI assisted in writing clear, descriptive comments for complex functions
-- **README Content**: AI tools helped structure and improve the documentation you're reading now
-- **User Story Refinement**: AI feedback helped refine user stories to be more specific and testable
-
-### AI Tools Used
-
-1. **GitHub Copilot**: Primary coding assistant for:
-   - Auto-completing Django view functions
-   - Generating form validation logic
-   - Creating template structures
-   - Writing test cases
-
-2. **Claude/ChatGPT**: Used for:
-   - Planning project architecture
-   - Debugging complex issues
-   - Refining documentation
-   - Code review and suggestions
-
-3. **AI-Powered Code Analysis**: For:
-   - Identifying potential security vulnerabilities
-   - Suggesting performance improvements
-   - Code style and PEP8 compliance checking
-
-### Human Oversight and Validation
-
-While AI tools were valuable throughout development, all AI-generated code was:
-- **Manually Reviewed**: Every suggestion was carefully evaluated before implementation
-- **Tested Thoroughly**: All AI-assisted code went through the same testing process
-- **Customized**: AI suggestions were adapted to fit the specific needs of this project
-- **Validated**: Functionality was verified to meet user requirements and project goals
-
-### Learning Outcomes
-
-Using AI tools during development provided valuable learning experiences:
-- **Faster Development**: Reduced time spent on boilerplate code
-- **Best Practices**: Learned Django patterns and conventions through AI suggestions
-- **Problem-Solving Skills**: Improved ability to debug and optimize code with AI assistance
-- **Code Quality**: Enhanced code readability and maintainability
-
-This project demonstrates how AI can be effectively used as a development tool while maintaining human oversight and decision-making in the creative and architectural aspects of software development.
-
-## Deployment
-
-### Heroku Deployment
-
-The application is deployed on Heroku with the following configuration:
-
-1. **Platform**: Heroku with PostgreSQL database
-2. **Environment Variables**: 
-   - `SECRET_KEY`: Django secret key for security
-   - `DEBUG`: Set to False in production
-   - `DATABASE_URL`: PostgreSQL connection string (auto-generated)
-
-3. **Build Configuration**:
-   - `Procfile`: Defines web process using Gunicorn
-   - `requirements.txt`: Lists all Python dependencies
-   - `runtime.txt`: Specifies Python version (3.12.4)
-
-4. **Static Files**: Served using WhiteNoise for efficient delivery
-
-### Local Development
-
-To run the project locally:
-
-1. Clone the repository
-2. Install dependencies: `pip install -r requirements.txt`
-3. Set up environment variables in `env.py`
-4. Run migrations: `python manage.py migrate`
-5. Create superuser: `python manage.py createsuperuser`
-6. Start development server: `python manage.py runserver`
-
-## Technologies Used
-
-**Backend:**
-- Python 3.12.4
-- Django 5.1.1
-- PostgreSQL (Production)
-- SQLite (Development)
-
-**Frontend:**
-- HTML5
-- CSS3
-- JavaScript
-- Bootstrap 5
-- Crispy Forms for form styling
-
-**Deployment & Tools:**
-- Heroku (Hosting)
-- Git & GitHub (Version Control)
-- WhiteNoise (Static Files)
-- Gunicorn (WSGI Server)
-
-## Future Enhancements
-
-- **Streak Tracking**: Add visual streak counters for motivation
-- **Habit Analytics**: Detailed progress charts and statistics
-- **Social Features**: Share achievements with friends ---=----ADD FAcebook links in
-- **Mobile App**: Native mobile application
-- **Reminder System**: Email or push notifications
-
+Ideas for making the app even better:
+- **Habit Streaks**: Show how many days in a row you've completed a habit
+- **Progress Charts**: Visual graphs showing your progress over time
+- **Reminders**: Email notifications to remind you about your habits
+- **Social Features**: Share achievements with friends
+- **Mobile App**: A native phone app version
 
 ## Credits
 
-- Django Documentation
-- Bootstrap 5 Documentation
-- Heroku Documentation
-- Code Institute Learning Materials
-- Stack Overflow Community
+**Learning Resources:**
+- Django official documentation (helped me understand how Django works)
+- Bootstrap documentation (for making it look good)
+- Code Institute course materials (my main learning source)
+- Stack Overflow community (for solving specific problems)
+
+**Special Thanks:**
+- My Code Institute mentors for guidance
+- The Django community for creating such a great framework
+- Everyone who tested the app and gave feedback
 
 ---
 
-[Back to Top](#habit-tracker---power-of-change)
+Thanks for checking out my habit tracker project! If you have any questions about the code or want to suggest improvements, feel free to reach out.
+
+[Back to Top](#the-power-of-change---habit-tracker)
 
 

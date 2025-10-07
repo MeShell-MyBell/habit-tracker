@@ -161,6 +161,10 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
     SECURE_SSL_REDIRECT = True  # Enable HTTPS redirect for production
+    
+    # Additional Chrome compatibility settings
+    SECURE_REFERRER_POLICY = 'same-origin'
+    SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
 else:
     # Development settings - Chrome compatibility
     CSRF_COOKIE_SECURE = False
@@ -172,9 +176,24 @@ else:
 CSRF_COOKIE_HTTPONLY = False  # Allow JavaScript access for AJAX requests
 CSRF_USE_SESSIONS = False
 CSRF_COOKIE_AGE = 31449600  # 1 year
+CSRF_TRUSTED_ORIGINS = []
+
+# Chrome-specific fixes
+if 'HEROKU_APP_NAME' in os.environ:
+    heroku_app_name = os.environ.get('HEROKU_APP_NAME')
+    CSRF_TRUSTED_ORIGINS = [
+        f'https://{heroku_app_name}.herokuapp.com',
+        f'https://{heroku_app_name}.heroku.com'
+    ]
 
 # Session settings for better Chrome compatibility
 SESSION_COOKIE_AGE = 1209600  # 2 weeks
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_COOKIE_NAME = 'habit_tracker_sessionid'
+
+# Additional Chrome compatibility headers
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    USE_TZ = True
 

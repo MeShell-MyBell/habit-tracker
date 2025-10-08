@@ -26,9 +26,13 @@ DEBUG = os.environ.get('DEBUG', 'False').lower() in ('true', '1', 'yes')
 # Heroku deployment fix: Get the app name dynamically
 heroku_app_name = os.environ.get('HEROKU_APP_NAME')
 if heroku_app_name:
-    ALLOWED_HOSTS = [f'{heroku_app_name}.herokuapp.com', 'localhost', '127.0.0.1']
+    ALLOWED_HOSTS = [f'{heroku_app_name}.herokuapp.com', 'localhost', '127.0.0.1',
+                     'power-of-change-tracker-3b5b0f9c1685.herokuapp.com',
+                     'shellies-habit-tracker-640f97fbfff2.herokuapp.com']
 else:
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1',
+                     'power-of-change-tracker-3b5b0f9c1685.herokuapp.com',
+                     'shellies-habit-tracker-640f97fbfff2.herokuapp.com']
 
 # Application definition
 INSTALLED_APPS = [
@@ -183,7 +187,14 @@ if 'HEROKU_APP_NAME' in os.environ:
     heroku_app_name = os.environ.get('HEROKU_APP_NAME')
     CSRF_TRUSTED_ORIGINS = [
         f'https://{heroku_app_name}.herokuapp.com',
-        f'https://{heroku_app_name}.heroku.com'
+        f'https://{heroku_app_name}.heroku.com',
+        'https://power-of-change-tracker-3b5b0f9c1685.herokuapp.com',
+        'https://shellies-habit-tracker-640f97fbfff2.herokuapp.com'
+    ]
+else:
+    CSRF_TRUSTED_ORIGINS = [
+        'https://power-of-change-tracker-3b5b0f9c1685.herokuapp.com',
+        'https://shellies-habit-tracker-640f97fbfff2.herokuapp.com'
     ]
 
 # Session settings for better Chrome compatibility

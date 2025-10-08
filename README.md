@@ -7,8 +7,7 @@ The app is called "The Power of Change" because small daily habits can lead to b
 
 ## Live Links
 
-🌐 **Try the App**: [The Power of Change - Habit Tracker](https://power-of-change-tracker.herokuapp.com/)
-
+🌐 **Try the App**: [The Power of Change - Habit Tracker]: https://power-of-change-tracker-3b5b0f9c1685.herokuapp.com/
 📂 **View the Code**: [GitHub Repository](https://github.com/MeShell-MyBell/habit-tracker)
 
 ## What's in This README

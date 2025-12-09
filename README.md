@@ -19,6 +19,7 @@ The app is called "The Power of Change" because small daily habits can lead to b
 - [How I Tested Everything](#how-i-tested-everything)
 - [Using AI to Help Build This](#using-ai-to-help-build-this)
 - [How to Run This Project](#how-to-run-this-project)
+- [Heroku Deployment & Naming](#heroku-deployment--naming)
 - [What I Used to Build This](#what-i-used-to-build-this)
 - [What I Might Add Next](#what-i-might-add-next)
 - [Credits](#credits)
@@ -249,6 +250,30 @@ The live version runs on Heroku (a hosting service) and uses:
 - **PostgreSQL**: A more powerful database for the live site
 - **Gunicorn**: A web server that handles multiple users
 - **WhiteNoise**: Serves CSS and image files efficiently
+
+## Heroku Deployment & Naming
+
+### ✅ Is the "habit-tracker" Name Compatible with Heroku?
+
+**Yes!** The repository name "habit-tracker" is fully compatible with Heroku. The project uses correct naming conventions:
+
+- **GitHub Repository**: `habit-tracker` (hyphens) ✅ Heroku compatible
+- **Django Project**: `habit_tracker` (underscores) ✅ Python compatible
+- **Heroku App Name**: Can use any name with lowercase letters, numbers, and hyphens
+
+### Heroku Naming Rules:
+✅ **Allowed**: lowercase letters, numbers, hyphens (-)
+❌ **Not Allowed**: uppercase, underscores (_), spaces, special characters
+
+### Example Valid Heroku App Names:
+- `habit-tracker`
+- `my-habit-tracker`
+- `habit-tracker-app`
+- `power-of-change-tracker-3b5b0f9c1685` (current deployment)
+
+**📖 For detailed information**, see the [Heroku Naming Compatibility Guide](HEROKU_NAMING_COMPATIBILITY.md)
+
+**🚀 For deployment instructions**, see the [Heroku Deployment Guide](HEROKU_DEPLOYMENT_GUIDE.md)
 
 ## What I Used to Build This
 

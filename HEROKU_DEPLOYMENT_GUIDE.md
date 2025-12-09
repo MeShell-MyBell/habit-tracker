@@ -11,58 +11,45 @@
 
 ### 1. Prerequisites
 - Heroku account created
-- Heroku CLI installed on your machine
-- Git repository pushed to GitHub (✅ Done)
+- GitHub repository for your project (✅ Done)
 
-### 2. Create Heroku App
-```bash
-# Login to Heroku
-heroku login
+### 2. Connect GitHub to Heroku
+1. Log in to your Heroku dashboard at [https://dashboard.heroku.com/](https://dashboard.heroku.com/).
+2. Create a new app by clicking **New → Create New App**.
+3. Name your app (e.g., `power-of-change`) and select your region.
+4. Go to the **Deploy** tab in your app dashboard.
+5. Under **Deployment Method**, select **GitHub**.
+6. Search for your GitHub repository (e.g., `habit_tracker`) and connect it.
 
-# Create a new Heroku app (replace 'your-app-name' with desired name)
-heroku create your-habit-tracker-app
+### 3. Enable Automatic Deploys
+1. In the **Deploy** tab, scroll to **Automatic Deploys**.
+2. Select the branch you want to deploy (e.g., `main`).
+3. Click **Enable Automatic Deploys**.
 
-# Set your app name as an environment variable
-heroku config:set HEROKU_APP_NAME=your-habit-tracker-app
-```
+### 4. Set Environment Variables
+1. Go to the **Settings** tab in your Heroku app dashboard.
+2. Click **Reveal Config Vars**.
+3. Add the following environment variables:
+   - `SECRET_KEY`: Generate a secure key for Django.
+   - `DEBUG`: Set to `False` for production.
+   - `HEROKU_APP_NAME`: Set to your app name (e.g., `power-of-change`).
 
-### 3. Set Environment Variables
-```bash
-# Set a secure secret key (generate a new one for production)
-heroku config:set SECRET_KEY="your-super-secret-key-here"
+### 5. Add Heroku Postgres
+1. In the **Resources** tab, search for **Heroku Postgres** under Add-ons.
+2. Select the free **Hobby Dev** plan and attach it to your app.
 
-# Set DEBUG to False for production
-heroku config:set DEBUG=False
+### 6. Run Database Migrations
+1. Go to the **More** dropdown in your Heroku app dashboard.
+2. Select **Run Console**.
+3. Run the following commands:
+   ```bash
+   python manage.py migrate
+   python manage.py createsuperuser
+   python manage.py create_default_categories
+   ```
 
-# Add database (Heroku Postgres)
-heroku addons:create heroku-postgresql:mini
-```
-
-### 4. Deploy to Heroku
-```bash
-# Add Heroku remote (if not automatically added)
-heroku git:remote -a your-habit-tracker-app
-
-# Deploy your code
-git push heroku main
-```
-
-### 5. Run Database Migrations
-```bash
-# Run migrations on Heroku
-heroku run python manage.py migrate
-
-# Create superuser (optional)
-heroku run python manage.py createsuperuser
-
-# Create default categories if you have the management command
-heroku run python manage.py create_default_categories
-```
-
-### 6. Open Your App
-```bash
-heroku open
-```
+### 7. Open Your App
+Your app will be live at `https://<your-app-name>.herokuapp.com`.
 
 ## Environment Variables Needed
 
@@ -78,42 +65,24 @@ Set these in your Heroku app dashboard (Settings → Config Vars):
 ## Troubleshooting Common Issues
 
 ### Issue 1: App crashes immediately
-**Solution**: Check logs with `heroku logs --tail`
+**Solution**: Check logs in the **More → View Logs** section of your Heroku dashboard.
 
 ### Issue 2: Static files not loading
-**Solution**: Run `heroku run python manage.py collectstatic --noinput`
+**Solution**: Run `python manage.py collectstatic --noinput` in the Heroku console.
 
 ### Issue 3: Database errors
-**Solution**: 
+**Solution**: Run migrations in the Heroku console:
 ```bash
-heroku run python manage.py migrate --run-syncdb
+python manage.py migrate --run-syncdb
 ```
 
 ### Issue 4: ALLOWED_HOSTS error
-**Solution**: Ensure `HEROKU_APP_NAME` is set correctly:
-```bash
-heroku config:set HEROKU_APP_NAME=your-exact-app-name
-```
+**Solution**: Ensure `HEROKU_APP_NAME` is set correctly in Config Vars.
 
 ## Security Notes
 - Never commit your `env.py` file (✅ Already in .gitignore)
 - Always use environment variables for sensitive data
 - The fallback SECRET_KEY is only for initial deployment - replace it with a secure one
-
-## Useful Heroku Commands
-```bash
-# View logs
-heroku logs --tail
-
-# Open Django shell
-heroku run python manage.py shell
-
-# Check dyno status
-heroku ps
-
-# Restart app
-heroku restart
-```
 
 ## Next Steps After Deployment
 1. Test all functionality on the live site
@@ -123,7 +92,7 @@ heroku restart
 
 ## Support
 If you encounter issues, check:
-1. Heroku logs: `heroku logs --tail`
+1. Heroku logs in the dashboard
 2. Django settings are correct
 3. All environment variables are set
 4. Database migrations have run successfully

@@ -99,6 +99,8 @@ The app has a secure account system:
 
 ![Registration Form](screenshots/registration.jpg)
 
+![Login Form](screenshots/log%20in.jpg)
+
 ### Managing Your Habits
 
 The main features for tracking habits:
@@ -131,9 +133,55 @@ I created 8 different categories to help organize habits:
 - **Responsive Design**: Looks good on any screen size
 - **Touch Friendly**: Easy to tap buttons on mobile
 
-## How I Tested Everything
+### Color Palette
 
-I made sure the app works properly by testing it in multiple ways:
+I created a vibrant color scheme inspired by a sunrise-to-ocean gradient:
+
+<div style="overflow-x: auto;">
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <td style="background-color: #ff6b6b; width: 100px; height: 80px; text-align: center; border: 1px solid #ddd;"><span style="background-color: rgba(255,255,255,0.7); padding: 4px 8px; border-radius: 4px;">#ff6b6b</span></td>
+    <td style="background-color: #ffa726; width: 100px; height: 80px; text-align: center; border: 1px solid #ddd;"><span style="background-color: rgba(255,255,255,0.7); padding: 4px 8px; border-radius: 4px;">#ffa726</span></td>
+    <td style="background-color: #ffeb3b; width: 100px; height: 80px; text-align: center; border: 1px solid #ddd;"><span style="background-color: rgba(255,255,255,0.7); padding: 4px 8px; border-radius: 4px;">#ffeb3b</span></td>
+    <td style="background-color: #81c784; width: 100px; height: 80px; text-align: center; border: 1px solid #ddd;"><span style="background-color: rgba(255,255,255,0.7); padding: 4px 8px; border-radius: 4px;">#81c784</span></td>
+    <td style="background-color: #4fc3f7; width: 100px; height: 80px; text-align: center; border: 1px solid #ddd;"><span style="background-color: rgba(255,255,255,0.7); padding: 4px 8px; border-radius: 4px;">#4fc3f7</span></td>
+    <td style="background-color: #1976d2; width: 100px; height: 80px; text-align: center; border: 1px solid #ddd;"><span style="background-color: rgba(255,255,255,0.7); padding: 4px 8px; border-radius: 4px;">#1976d2</span></td>
+    <td style="background-color: #0d47a1; width: 100px; height: 80px; text-align: center; border: 1px solid #ddd;"><span style="background-color: rgba(255,255,255,0.7); padding: 4px 8px; border-radius: 4px;">#0d47a1</span></td>
+  </tr>
+  <tr>
+    <td style="text-align: center; padding: 5px; border: 1px solid #ddd;">Sunrise Red</td>
+    <td style="text-align: center; padding: 5px; border: 1px solid #ddd;">Orange Glow</td>
+    <td style="text-align: center; padding: 5px; border: 1px solid #ddd;">Sun Yellow</td>
+    <td style="text-align: center; padding: 5px; border: 1px solid #ddd;">Horizon Green</td>
+    <td style="text-align: center; padding: 5px; border: 1px solid #ddd;">Sky Blue</td>
+    <td style="text-align: center; padding: 5px; border: 1px solid #ddd;">Ocean Blue</td>
+    <td style="text-align: center; padding: 5px; border: 1px solid #ddd;">Deep Blue</td>
+  </tr>
+</table>
+</div>
+
+<div style="margin-top: 20px; overflow-x: auto;">
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <td style="background-color: #9c27b0; width: 100px; height: 80px; text-align: center; border: 1px solid #ddd;"><span style="background-color: rgba(255,255,255,0.7); padding: 4px 8px; border-radius: 4px;">#9c27b0</span></td>
+    <td style="background-color: #673ab7; width: 100px; height: 80px; text-align: center; border: 1px solid #ddd;"><span style="background-color: rgba(255,255,255,0.7); padding: 4px 8px; border-radius: 4px;">#673ab7</span></td>
+    <td style="background-color: #4caf50; width: 100px; height: 80px; text-align: center; border: 1px solid #ddd;"><span style="background-color: rgba(255,255,255,0.7); padding: 4px 8px; border-radius: 4px;">#4caf50</span></td>
+    <td style="background-color: #ff9800; width: 100px; height: 80px; text-align: center; border: 1px solid #ddd;"><span style="background-color: rgba(255,255,255,0.7); padding: 4px 8px; border-radius: 4px;">#ff9800</span></td>
+    <td style="background-color: #f44336; width: 100px; height: 80px; text-align: center; border: 1px solid #ddd;"><span style="background-color: rgba(255,255,255,0.7); padding: 4px 8px; border-radius: 4px;">#f44336</span></td>
+    <td style="background-color: #00bcd4; width: 100px; height: 80px; text-align: center; border: 1px solid #ddd;"><span style="background-color: rgba(255,255,255,0.7); padding: 4px 8px; border-radius: 4px;">#00bcd4</span></td>
+  </tr>
+  <tr>
+    <td style="text-align: center; padding: 5px; border: 1px solid #ddd;">Purple</td>
+    <td style="text-align: center; padding: 5px; border: 1px solid #ddd;">Deep Purple</td>
+    <td style="text-align: center; padding: 5px; border: 1px solid #ddd;">Success Green</td>
+    <td style="text-align: center; padding: 5px; border: 1px solid #ddd;">Warning Orange</td>
+    <td style="text-align: center; padding: 5px; border: 1px solid #ddd;">Alert Red</td>
+    <td style="text-align: center; padding: 5px; border: 1px solid #ddd;">Info Blue</td>
+  </tr>
+</table>
+</div>
+
+The background uses a beautiful sunrise-to-ocean gradient, while the buttons and interactive elements use the accent colors for different functions (purple for main elements, green for success actions, orange for warnings, etc.).
 
 ### Checking the Code Quality
 
@@ -141,9 +189,13 @@ I made sure the app works properly by testing it in multiple ways:
 - All pages pass validation ✅
 - No broken code or missing tags ✅
 
+![HTML Validation](screenshots/html%20validation.jpg)
+
 **CSS Testing**: Checked that my styling code is valid
 - CSS follows best practices ✅
 - Works well with Bootstrap ✅
+
+![CSS Validation](screenshots/CSS.jpg)
 
 ### Testing in Different Browsers
 I made sure it works everywhere:
@@ -177,6 +229,8 @@ I made sure people with disabilities can use the app:
 - **Good Color Contrast**: Text is easy to read ✅
 - **Keyboard Navigation**: Can use the app without a mouse ✅
 - **Screen Reader Friendly**: Works with assistive technology ✅
+
+![WAVE Accessibility Testing](screenshots/wave.jpg)
 
 ## Using AI to Help Build This
 

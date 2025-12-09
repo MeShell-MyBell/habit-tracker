@@ -61,7 +61,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'habit_tracker.urls'
+ROOT_URLCONF = 'habit_tracker.urls'python manage.py migrate
+python manage.py createsuperuser
+python manage.py create_default_categoriespython manage.py migrate
+python manage.py createsuperuser
+python manage.py create_default_categories
 
 TEMPLATES = [
     {
